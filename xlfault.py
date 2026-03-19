@@ -10,6 +10,7 @@ from functions.tensoes_nas_barras import tensoes_barras
 from functions.matrizes_y_e_z_barra import calcular_matrizes
 from functions.correcao_defasagem import correcao_defasagem
 from functions.corrente_nos_elementos import corrente_nos_elementos
+from functions.correntes_injetadas import correntes_injetadas
 
 
 def curto_circuito():
@@ -113,26 +114,31 @@ def curto_circuito():
     #----------------------------------------------------------------------------------------------------------------------
 
     resultados = correntes_curto(resultados, Configuracoes, Zbarra12, Zbarra0, T012abc, Barra, potencia_base)
-
+    print(type(resultados))
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- TENSÕES NOS BARRAMENTOS -------------------------------------------------------
     #---------------------------------------------------------------------------------------------------------------------
     
     G = correcao_defasagem(Linha, Transformador) # Gera o grafo de correção de defasagem, por conta dos transformadores
     resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc)
-
+    print(type(resultados))
 
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- CORRENTE NOS ELEMENTOS --------------------------------------------------------
     #---------------------------------------------------------------------------------------------------------------------
     
     resultados = corrente_nos_elementos(Configuracoes, Linha, Maquina, Carga, Transformador, resultados, G, T012abc)
-
+    print(type(resultados))
+    #----------------------------------------------------------------------------------------------------------------------
+    #----------------------------------- CÁLCULOS DAS CORRENTES INJETADAS -------------------------------------------------
+    #----------------------------------------------------------------------------------------------------------------------
+    
+    resultados = correntes_injetadas(Ybarra12, Ybarra0, resultados, Configuracoes, Barra, T012abc)
+    print(type(resultados))
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- EXPORTAR RESULTADOS -----------------------------------------------------------
     #---------------------------------------------------------------------------------------------------------------------
     
-    print("ola mundo")
     with pd.ExcelWriter("resultados.xlsx") as writer:
 
         resultados['Correntes de Falta'][0].to_excel(
@@ -143,5 +149,12 @@ def curto_circuito():
         )
         resultados['Correntes de Contibuição'][0].to_excel(
             writer, sheet_name="Correntes de Contribuição", index=False
-        )   
+        )
+        resultados['Correntes Injetadas nos Barramentos'][0].to_excel(
+            writer, sheet_name="Correntes Injetadas", index=False
+        )
+
+
+
+
 curto_circuito()

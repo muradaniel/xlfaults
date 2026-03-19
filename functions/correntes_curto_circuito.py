@@ -1,7 +1,7 @@
 def correntes_curto(resultados, df_configuracoes, Zbarra12, Zbarra0, T012abc, Barra, potencia_base):
     import numpy as np
     import pandas as pd
-    from functions.conversao_complexa import cartesiano_polar
+    #from functions.conversao_complexa import cartesiano_polar
     
     for index, row in df_configuracoes.iterrows():
 
