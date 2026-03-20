@@ -33,8 +33,10 @@ def curto_circuito():
     #print(Maquina, Carga, Transformador, Linha, Barra, Transformador3E) # Até aqui a leitura funcionou bem...
 
     # LEITURA DAS CONFIGURAÇÕES DA SIMULAÇÃO
-    ws = wb.sheets['Configurações']
-    potencia_base = ws.range('I1').value
+    ws = wb.sheets['Oculto']
+    potencia_base = ws.range('A1').value
+    nome_caso_estudo = ws.range('A2').value
+    unidade = ws.range('A3').value
     Configuracoes = pd.read_excel(fr"{caminho}", sheet_name= "Configurações") # Aqui poderemos rodar várias simulações
     #print(potencia_base, configuracoes)
 
@@ -106,35 +108,34 @@ def curto_circuito():
 
     
 
-    Ybarra12, Zbarra12, Ybarra0, Zbarra0 = calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra)
-
+    Ybarra12, Zbarra12, Ybarra0, Zbarra0, isoladas = calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra)
 
     #----------------------------------------------------------------------------------------------------------------------
     #---------------------------------- CORRENTES DE CURTO CIRCUITO -------------------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
 
     resultados = correntes_curto(resultados, Configuracoes, Zbarra12, Zbarra0, T012abc, Barra, potencia_base)
-    print(type(resultados))
+    
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- TENSÕES NOS BARRAMENTOS -------------------------------------------------------
     #---------------------------------------------------------------------------------------------------------------------
     
     G = correcao_defasagem(Linha, Transformador) # Gera o grafo de correção de defasagem, por conta dos transformadores
-    resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc)
-    print(type(resultados))
+    resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc, isoladas)
+
 
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- CORRENTE NOS ELEMENTOS --------------------------------------------------------
     #---------------------------------------------------------------------------------------------------------------------
     
     resultados = corrente_nos_elementos(Configuracoes, Linha, Maquina, Carga, Transformador, resultados, G, T012abc)
-    print(type(resultados))
+    
     #----------------------------------------------------------------------------------------------------------------------
     #----------------------------------- CÁLCULOS DAS CORRENTES INJETADAS -------------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
     
     resultados = correntes_injetadas(Ybarra12, Ybarra0, resultados, Configuracoes, Barra, T012abc)
-    print(type(resultados))
+    
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- EXPORTAR RESULTADOS -----------------------------------------------------------
     #---------------------------------------------------------------------------------------------------------------------

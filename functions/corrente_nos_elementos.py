@@ -19,7 +19,7 @@ def corrente_nos_elementos(Configuracoes, Linha, Maquina, Carga, Transformador, 
                 if tabela_elemento is Linha: # Calculo das correntes nas linhas de transmissão
                     numero_barra_de = row_elemento["Barra de"]
                     numero_barra_para = row_elemento["Barra para"]
-                    
+
                     delta_vk0 = (
                         tensoes.loc[tensoes["Barra"] == numero_barra_de, "Seq. (0)"].values[0]
                         - tensoes.loc[tensoes["Barra"] == numero_barra_para, "Seq. (0)"].values[0]

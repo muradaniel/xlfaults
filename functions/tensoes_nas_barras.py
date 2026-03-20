@@ -5,7 +5,7 @@ import cmath
 import math
 
 
-def tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc):
+def tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc, isoladas):
     for index, row in Configuracoes.iterrows(): # Vai iterar a cada curto circuito
         linhas_nao_corrigidas = []  # acumulador do DataFrame desse curto
         linhas_corrigidas = []  # acumulador do DataFrame desse curto
