@@ -71,9 +71,9 @@ def calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra):
             Ybarra0.at[int(row["Barra para"]), int(row["Barra de"])] = complex(0, 0) + Ybarra0.loc[int(row["Barra para"]), row["Barra de"]]
 
     # ---------------------------- CÁLCULOS DA ZBARRA (+), (-) ----------------------------
-    print(Ybarra0)
+
     Ybarra0, isoladas = regularizar_Ybarra0(Ybarra0, tol=1e-10)
-    print(Ybarra0)
+
     Zbarra0 = pd.DataFrame(np.linalg.inv(Ybarra0.values), index = Barra['Número'].tolist(), columns = Barra['Número'].tolist())
 
     return Ybarra12, Zbarra12, Ybarra0, Zbarra0, isoladas

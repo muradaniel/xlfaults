@@ -110,6 +110,11 @@ def curto_circuito():
 
     Ybarra12, Zbarra12, Ybarra0, Zbarra0, isoladas = calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra)
 
+    print(Ybarra12)
+    print(Ybarra0)
+    print(Zbarra12)
+    print(Zbarra0)
+
     #----------------------------------------------------------------------------------------------------------------------
     #---------------------------------- CORRENTES DE CURTO CIRCUITO -------------------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
@@ -122,6 +127,7 @@ def curto_circuito():
     
     G = correcao_defasagem(Linha, Transformador) # Gera o grafo de correção de defasagem, por conta dos transformadores
     resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc, isoladas)
+    #resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc)
 
 
     #---------------------------------------------------------------------------------------------------------------------
@@ -135,6 +141,7 @@ def curto_circuito():
     #----------------------------------------------------------------------------------------------------------------------
     
     resultados = correntes_injetadas(Ybarra12, Ybarra0, resultados, Configuracoes, Barra, T012abc)
+
     
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- EXPORTAR RESULTADOS -----------------------------------------------------------
