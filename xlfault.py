@@ -11,6 +11,8 @@ from functions.matrizes_y_e_z_barra import calcular_matrizes
 from functions.correcao_defasagem import correcao_defasagem
 from functions.corrente_nos_elementos import corrente_nos_elementos
 from functions.correntes_injetadas import correntes_injetadas
+from functions.converter_fasores import formatar_fasores
+from functions.exportar_matrizes import exportar_matrizes
 
 
 def curto_circuito():
@@ -108,7 +110,7 @@ def curto_circuito():
 
     
 
-    Ybarra12, Zbarra12, Ybarra0, Zbarra0, isoladas = calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra)
+    Ybarra12, Zbarra12, Ybarra0, Zbarra0 = calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra)
 
     print(Ybarra12)
     print(Ybarra0)
@@ -126,7 +128,7 @@ def curto_circuito():
     #---------------------------------------------------------------------------------------------------------------------
     
     G = correcao_defasagem(Linha, Transformador) # Gera o grafo de correção de defasagem, por conta dos transformadores
-    resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc, isoladas)
+    resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc)
     #resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc)
 
 
@@ -146,6 +148,10 @@ def curto_circuito():
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- EXPORTAR RESULTADOS -----------------------------------------------------------
     #---------------------------------------------------------------------------------------------------------------------
+
+    resultados = formatar_fasores(resultados)
+
+    exportar_matrizes(wb,Ybarra12, Zbarra12, Ybarra0, Zbarra0)
     
     with pd.ExcelWriter("resultados.xlsx") as writer:
 

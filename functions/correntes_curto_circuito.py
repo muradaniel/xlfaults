@@ -50,9 +50,9 @@ def correntes_curto(resultados, df_configuracoes, Zbarra12, Zbarra0, T012abc, Ba
             print("Ocorreu Algum Erro, Conferir...")
 
 
-        Vb = Barra.loc[Barra["Número"] == barra_curto, "Tensão (kV)"].values[0]
-        IF *= (potencia_base / (np.sqrt(3) * Vb))
-        print(f"IF (pu) = {IF}")
+        #Vb = Barra.loc[Barra["Número"] == barra_curto, "Tensão (kV)"].values[0]
+        #IF *= (potencia_base / (np.sqrt(3) * Vb))
+        #print(f"IF (pu) = {IF}")
         Ifa = If3f[0][0] #* (potencia_base / (np.sqrt(3) * Vb))
         Ifb = If3f[1][0] #* (potencia_base / (np.sqrt(3) * Vb))
         Ifc = If3f[2][0] #* (potencia_base / (np.sqrt(3) * Vb))
