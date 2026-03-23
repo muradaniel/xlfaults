@@ -10,7 +10,13 @@ Ao analisar as ferramentas disponíveis para estudantes e profissionais de Engen
 Pensando nessas limitações, desenvolvi o XLFaults: uma ferramenta de análise de curto-circuito sem restrições de barramentos, integrada diretamente ao Excel e voltada para praticidade, flexibilidade e autonomia do usuário.
 
 A proposta é simples: você precisa apenas do meu código e de uma planilha Excel bem estruturada. A partir disso, toda a modelagem, processamento e análise acontecem de forma automatizada — é só preparar os dados e deixar a mágica acontecer.
-## Cuidados e Boas Práticas
+
+# Próximas Novidades
+ - Modelagem de Transformador de 3 enrolamentos
+ - Modelagem de Transformador defasador
+ - Ajuste e Conferências com casos de estudos com ilhas e barras isoladas
+ 
+
 # Contatos
 
 - LinkedIn: [Daniel Murad](https://www.linkedin.com/in/daniel-murad/)

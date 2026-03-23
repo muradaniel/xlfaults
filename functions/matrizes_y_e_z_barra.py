@@ -4,7 +4,7 @@
 
 import pandas as pd
 import numpy as np
-from functions.regularizar_Ybarra0 import regularizar_Ybarra0
+#from functions.regularizar_Ybarra0 import regularizar_Ybarra0
 
 def calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra):
 
@@ -74,6 +74,6 @@ def calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra):
     # ---------------------------- CÁLCULOS DA ZBARRA (+), (-) ----------------------------
 
 
-    Zbarra0 = regularizar_Ybarra0(Ybarra0, Barra) # Regulariza a matriz Ybarra0 e obtém Zbarra0, tratando o caso de barras isoladas
-
+    #Zbarra0 = regularizar_Ybarra0(Ybarra0, Barra) # Regulariza a matriz Ybarra0 e obtém Zbarra0, tratando o caso de barras isoladas
+    Zbarra0 = pd.DataFrame(np.linalg.inv(Ybarra0.values), index = Barra['Número'].tolist(), columns = Barra['Número'].tolist())
     return Ybarra12, Zbarra12, Ybarra0, Zbarra0#, isoladas
