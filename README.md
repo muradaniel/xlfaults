@@ -11,6 +11,10 @@ Pensando nessas limitações, desenvolvi o XLFaults: uma ferramenta de análise 
 
 A proposta é simples: você precisa apenas do meu código e de uma planilha Excel bem estruturada. A partir disso, toda a modelagem, processamento e análise acontecem de forma automatizada — é só preparar os dados e deixar a mágica acontecer.
 
+# Como Usar
+![Foto da barra](screenshot/Tela_excel.png)
+
+
 # Próximas Novidades
  - Modelagem de Transformador de 3 enrolamentos
  - Modelagem de Transformador defasador
