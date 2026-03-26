@@ -106,7 +106,7 @@ def curto_circuito():
     Carga["ZN (pu) Base"] = Carga["RN (pu) Base"] + 1j * Carga["XN (pu) Base"]
     Carga["Z0 (pu) Base"] = Carga["R1 (pu) Base"] + 1j * (Carga["X1 (pu) Base"] + 3 * Carga["ZN (pu) Base"])
 
-    Configuracoes["Z (pu) Base"] = Configuracoes["Impedância de Falta R (pu)"] + 1j * Configuracoes["Impedância de Falta X (pu)"]
+    Configuracoes["Z (pu) Base"] = Configuracoes["Resistência de Falta (pu)"] + 1j * Configuracoes["Reatância de Falta (pu)"]
     # Futuramente, para o Transformador 3 Enrolamentos...
 
     
@@ -150,5 +150,5 @@ def curto_circuito():
     exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
 
 
-
+print("Simulação Finalizada")
 curto_circuito()

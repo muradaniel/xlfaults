@@ -29,11 +29,19 @@ Nesta seção, vamos analisar cada grupo de comandos dentro da guia "curto circu
 ![Foto da barra](docs/imagens/tabela_barramentos.png)
 
 - Ao clicar no respectivo botão, o usuário é direcionado para a planilha "Barramentos";
-- Ao ser direcionado para a planilha, o usuário irá observar uma pequena tabela com apenas 3 colunas ("Nome", "Número", "Tensão (kV");
-- Na coluna nome, pode ser imputado qualquer valor, de preferência o nome do barramento ("Barra 1", "Barramento Light", "B 10", etc);
-- Na coluna Número, pode ser imputado apenas valores inteiros maiores que zero, não havendo valor limite, como recomendação, não ultrapassar o número 99999 para não casar imcompatibilidade com o modelo do ANAFAS;
-- Na coluna Tensão (kV), pode ser imputado apenas valores maiores que zero. Essa tensão é a tensão BASE do barramento!;
+- Ao ser direcionado para a planilha, o usuário irá observar uma pequena tabela com 3 colunas ("Nome", "Número", "Tensão (kV");
+- Na coluna "Nome"", pode ser imputado qualquer valor, de preferência o nome do barramento ("Barra 1", "Barramento Light", "B 10", etc);
+- Na coluna "Número"", pode ser imputado apenas valores inteiros maiores que zero, não havendo valor limite, como recomendação, não ultrapassar o número 99999 para não casar imcompatibilidade com o modelo do ANAFAS;
+- Na coluna 'Tensão (kV)"", pode ser imputado apenas valores maiores que zero. Essa tensão é a tensão BASE do barramento!;
 
+#### Transformadores
+![Foto da barra](docs/imagens/tabela_barramentos.png)
+
+- Ao clicar no respectivo botão, o usuário é direcionado para a planilha "Transformadores";
+- Ao ser direcionado para a planilha, o usuário irá observar uma tabela com 15 colunas;
+- Na coluna "Nome", pode ser imputado qualquer valor, de preferência o nome do transformador ("Transformador 1", "Trafo 3", "T 15", etc);
+- Na coluna "Potência Nominal Base (MVA)", pode ser imputado apenas valores maiores que zero, não havendo valor limite, como recomendação, utiluizar a potência base de análise (ou seja, transformador já com a sua base convertida)
+- Na coluna "Barra de", pode ser imputado apenas valores inteiros  com o número do barramento em que está conectado, sendo definido como conexão primária do trasformador
 
 ## Simulação e Configurações
 
