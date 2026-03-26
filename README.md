@@ -22,8 +22,8 @@ A proposta é simples: você precisa apenas do meu código e de uma planilha Exc
 Nesta seção, vamos analisar cada grupo de comandos dentro da guia "curto circuito" e iremos analisar suas funcionalidades e propriedades.
 
 ## Casos de Estudo  
-## Elementos Sistema Elétrico
-### Barramentos:
+### Elementos Sistema Elétrico
+#### Barramentos:
 - Ao clicar no no respectivo botão, o usuário é direcionado para a planilha "Barramentos"  
 - 
 ## Simulação e Configurações  
