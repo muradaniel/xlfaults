@@ -18,7 +18,17 @@ A proposta é simples: você precisa apenas do meu código e de uma planilha Exc
 
 # Como Usar
 ![Foto da barra](docs/imagens/Tela_excel.png)
-[...]
+
+Nesta seção, vamos analisar cada grupo de comandos dentro da guia "curto circuito" e iremos analisar suas funcionalidades e propriedades.
+
+## Casos de Estudo  
+## Elementos Sistema Elétrico  
+### Barramentos:  
+- Ao clicar no no respectivo botão, o usuário é direcionado para a planilha "Barramentos"  
+- 
+## Simulação e Configurações  
+## Resultados  
+## informações Adicionais  
 
 # Próximas Novidades
  - Modelagem de Transformador de 3 enrolamentos
