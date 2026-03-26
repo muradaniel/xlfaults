@@ -4,7 +4,6 @@ from datetime import datetime # Para Controle de Tempo de Execução
 import math # Cálculos Matemáticos
 import cmath # Cálculos com Números Complexos
 import numpy as np # Manipulação de Matrizes
-import sys
 
 from functions.correntes_curto_circuito import correntes_curto
 from functions.tensoes_nas_barras import tensoes_barras
@@ -15,6 +14,7 @@ from functions.correntes_injetadas import correntes_injetadas
 from functions.converter_fasores import formatar_fasores
 from functions.exportar_matrizes import exportar_matrizes
 from functions.conversao_valores_reais import valores_reais
+from functions.exportar_resultados import exportar_resultados
 
 
 def curto_circuito():
@@ -34,12 +34,7 @@ def curto_circuito():
     Linha = pd.read_excel(fr"{caminho}", sheet_name= "Linhas de Transmissão")
     Barra = pd.read_excel(fr"{caminho}", sheet_name= "Barramentos")
     Transformador3E = pd.read_excel(fr"{caminho}", sheet_name = "Transformadores 3 Enrolamentos") # Ainda não implementado...
-    #print(Maquina, Carga, Transformador, Linha, Barra, Transformador3E) # Até aqui a leitura funcionou bem...
-    print(Maquina)
-    print(Carga)
-    print(Transformador)
-    print(Linha)
-    print(Barra)
+
 
     # LEITURA DAS CONFIGURAÇÕES DA SIMULAÇÃO
     ws = wb.sheets['Oculto']
@@ -47,7 +42,6 @@ def curto_circuito():
     nome_caso_estudo = ws.range('A2').value
     unidade = ws.range('A3').value
     Configuracoes = pd.read_excel(fr"{caminho}", sheet_name= "Configurações") # Aqui poderemos rodar várias simulações
-    #print(potencia_base, configuracoes)
 
 
 
@@ -119,11 +113,6 @@ def curto_circuito():
 
     Ybarra12, Zbarra12, Ybarra0, Zbarra0 = calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra)
 
-    print(Ybarra12)
-    print(Ybarra0)
-    print(Zbarra12)
-    print(Zbarra0)
-
     #----------------------------------------------------------------------------------------------------------------------
     #---------------------------------- CORRENTES DE CURTO CIRCUITO -------------------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
@@ -136,8 +125,6 @@ def curto_circuito():
     
     G = correcao_defasagem(Linha, Transformador) # Gera o grafo de correção de defasagem, por conta dos transformadores
     resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc)
-    #resultados = tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012abc)
-
 
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- CORRENTE NOS ELEMENTOS --------------------------------------------------------
@@ -151,31 +138,17 @@ def curto_circuito():
     
     resultados = correntes_injetadas(Ybarra12, Ybarra0, resultados, Configuracoes, Barra, T012abc)
 
-    
     #---------------------------------------------------------------------------------------------------------------------
     #------------------------------------- EXPORTAR RESULTADOS -----------------------------------------------------------
     #---------------------------------------------------------------------------------------------------------------------
     if unidade == "Real":
         resultados = valores_reais(resultados, Barra, Configuracoes, potencia_base, Maquina, Carga, Linha, Transformador)
     resultados = formatar_fasores(resultados)
-    print(resultados['Correntes de Falta'][0])
-
 
     exportar_matrizes(wb,Ybarra12, Zbarra12, Ybarra0, Zbarra0)
     
-    with pd.ExcelWriter("resultados.xlsx") as writer:
+    exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
 
-        resultados['Correntes de Falta'][0].to_excel(
-            writer, sheet_name="Correntes de Falta", index=False
-        )
-        resultados['Tensões nas Barras'][0].to_excel(
-            writer, sheet_name="Tensões nas Barras", index=False
-        )
-        resultados['Correntes de Contribuição'][0].to_excel(
-            writer, sheet_name="Correntes de Contribuição", index=False
-        )
-        resultados['Correntes Injetadas nos Barramentos'][0].to_excel(
-            writer, sheet_name="Correntes Injetadas", index=False
-        )
+
 
 curto_circuito()

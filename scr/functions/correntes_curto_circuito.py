@@ -30,7 +30,7 @@ def correntes_curto(resultados, df_configuracoes, Zbarra12, Zbarra0, T012abc, Ba
             If3f = T012abc @ np.array([[Ifa0], [Ifa1], [Ifa2]])
             IF = If3f[1][0] # Fase B
 
-        elif tipo_de_curto == "Bifásico - Terra":
+        elif tipo_de_curto == "Bifásico-Terra":
             Ifa1 = 1 / (
                     Zbarra12.loc[barra_curto, barra_curto] +
                     (
