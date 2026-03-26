@@ -23,9 +23,17 @@ Nesta seção, vamos analisar cada grupo de comandos dentro da guia "curto circu
 ## Casos de Estudo
 
 ### Elementos do Sistema Elétrico
+![Foto da barra](docs/imagens/Tela_excel.png)
 
 #### Barramentos
-- Ao clicar no respectivo botão, o usuário é direcionado para a planilha "Barramentos"
+![Foto da barra](docs/imagens/tabela_barramentos.png)
+
+- Ao clicar no respectivo botão, o usuário é direcionado para a planilha "Barramentos";
+- Ao ser direcionado para a planilha, o usuário irá observar uma pequena tabela com apenas 3 colunas ("Nome", "Número", "Tensão (kV");
+- Na coluna nome, pode ser imputado qualquer valor, de preferência o nome do barramento ("Barra 1", "Barramento Light", "B 10", etc);
+- Na coluna Número, pode ser imputado apenas valores inteiros maiores que zero, não havendo valor limite, como recomendação, não ultrapassar o número 99999 para não casar imcompatibilidade com o modelo do ANAFAS;
+- Na coluna Tensão (kV), pode ser imputado apenas valores maiores que zero. Essa tensão é a tensão BASE do barramento!;
+
 
 ## Simulação e Configurações
 
