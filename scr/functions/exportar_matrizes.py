@@ -11,7 +11,7 @@ def formatar_complexo(val):
     except (AttributeError, ValueError):
         return str(val)
 
-def exportar_matrizes(wb, Ybarra12, Zbarra12, Ybarra0, Zbarra0):
+def exportar_matrizes(caminho, Ybarra12, Zbarra12, Ybarra0, Zbarra0):
     nomes_planilhas = {
         "Y Barra (+) (-)": Ybarra12,
         "Z Barra (+) (-)": Zbarra12,
@@ -20,6 +20,7 @@ def exportar_matrizes(wb, Ybarra12, Zbarra12, Ybarra0, Zbarra0):
     }
 
     for nome, df in nomes_planilhas.items():
+        wb = xw.Book(fr"{caminho}")
         ws = wb.sheets[nome]
         
         # 1. APAGAR TUDO: Limpa conteúdo e formatações anteriores (cores, negrito, etc)

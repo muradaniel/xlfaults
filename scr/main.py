@@ -15,50 +15,34 @@ from functions.converter_fasores import formatar_fasores
 from functions.exportar_matrizes import exportar_matrizes
 from functions.conversao_valores_reais import valores_reais
 from functions.exportar_resultados import exportar_resultados
+from functions.leitura_e_tratamento_tabelas import tabelas_de_dados
+from functions.leitura_variaveis_sistemas import variaveis_sistema
 
 
-def curto_circuito():
+def main(caminho):
 
     #----------------------------------------------------------------------------------------------------------------------
-    #-------------------------------------- LEITURA DOS DADOS E TABELAS  --------------------------------------------------
+    #---------------------------------------- LEITURA DE DADOS DO EXCEL  --------------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
-
-    # ABERTURA DO ARQUIVO PELO XLWINGS
-    caminho = "xlfaults.xlsm" # O arquivo excel deve estar na mesma pasta do código Python
-    wb = xw.Book(fr"{caminho}")
 
     # LEITURA DOS ELEMENTOS DO SISTEMA
-    Maquina = pd.read_excel(fr"{caminho}", sheet_name = "Máquinas")
-    Carga = pd.read_excel(fr"{caminho}", sheet_name = "Carga")
-    Transformador = pd.read_excel(fr"{caminho}", sheet_name = "Transformadores")
-    Linha = pd.read_excel(fr"{caminho}", sheet_name= "Linhas de Transmissão")
-    Barra = pd.read_excel(fr"{caminho}", sheet_name= "Barramentos")
-    Transformador3E = pd.read_excel(fr"{caminho}", sheet_name = "Transformadores 3 Enrolamentos") # Ainda não implementado...
+    Maquina, Carga, Transformador, Linha, Barra, Transformador3E, Configuracoes = tabelas_de_dados(caminho)
 
-
-    # LEITURA DAS CONFIGURAÇÕES DA SIMULAÇÃO
-    ws = wb.sheets['Oculto']
-    potencia_base = ws.range('A1').value
-    nome_caso_estudo = ws.range('A2').value
-    unidade = ws.range('A3').value
-    Configuracoes = pd.read_excel(fr"{caminho}", sheet_name= "Configurações") # Aqui poderemos rodar várias simulações
-
-
+    # LEITURA DAS CONFIGURAÇÕES DO SISTEMA 
+    potencia_base, nome_caso_estudo, unidade = variaveis_sistema(caminho, nome_planilha="Oculto")
 
     #----------------------------------------------------------------------------------------------------------------------
     #--------------------------------------------- VARIAVEIS  -------------------------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
     
     # CRIAÇÃO DAS TABELAS DE RESULTADOS
-    tabela_tensoes_barras = pd.DataFrame(columns=["Barra", "Seq. (0)", "Seq. (+)", "Seq. (-)"]) # Utilizado nos cálculos
-    tabela_tensoes_barras_corrigidos = pd.DataFrame(columns=["Barra", "Fase A", "Fase B", "Fase C", "Seq. (0)", "Seq. (+)", "Seq. (-)"]) # Resultado Final
-
-    tabela_correntes_contribuicao = pd.DataFrame(columns=["Trecho", "Seq. (0)", "Seq. (+)", "Seq. (-)"]) # Utilizado nos cálculos
-    tabela_correntes_contribuicao_corrigidos = pd.DataFrame(columns=["Trecho", "Fase A", "Fase B", "Fase C", "Seq. (0)", "Seq. (+)", "Seq. (-)"]) # Resultado Final
-
-    tabela_correntes_injetadas = pd.DataFrame(columns=["Elemento", "Barra", "Seq. (0)", "Seq. (+)", "Seq. (-)"]) # Utilizado nos cálculos
-    tabela_correntes_injetadas_corrigidos = pd.DataFrame(columns=["Elemento", "Barra", "Fase A", "Fase B", "Fase C", "Seq. (0)", "Seq. (+)", "Seq. (-)"]) # Resultado Final
-
+    resultados = {'Correntes de Falta': [],
+                  'Tensões nas Barras': [],
+                  'Correntes de Contribuição': [],
+                  'Correntes Injetadas nos Barramentos': [],
+                  'Tensões nas Barras - Não Corrigidas': [],
+                  'Correntes de Contibuição - Não Corrigidas': [],
+                  }
 
     # DADOS EXTRAS/COMPLEMENTARES
     data = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
@@ -79,37 +63,9 @@ def curto_circuito():
         [1,     alfa**2,       alfa ]
     ])
 
-    resultados = {'Correntes de Falta': [],
-                  'Tensões nas Barras': [],
-                  'Correntes de Contribuição': [],
-                  'Correntes Injetadas nos Barramentos': [],
-                  'Tensões nas Barras - Não Corrigidas': [],
-                  'Correntes de Contibuição - Não Corrigidas': [],
-                  }
-
     #----------------------------------------------------------------------------------------------------------------------
-    #---------------------------------- CÁLCULO DAS IMPEDÂNCIAS -----------------------------------------------------------
+    #---------------------------------------- CÁLCULO DAS MATRIZES --------------------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
-
-    Maquina["Z1 (pu) Base"] = Maquina["R1 (pu) Base"] + 1j *  Maquina["X1 (pu) Base"]
-    Maquina["ZN (pu) Base"] = Maquina["RN (pu) Base"] + 1j *  Maquina["XN (pu) Base"]
-    Maquina["Z0 (pu) Base"] = Maquina["R0 (pu) Base"] + 1j * (Maquina["X0 (pu) Base"] + 3 * Maquina["ZN (pu) Base"])
-    
-
-    Transformador["Z1 (pu) Base"] = 0 + 1j * Transformador["X1 (pu) Base"]
-    Transformador["Z0 (pu) Base"] = 0 + 1j * (Transformador["X0 (pu) Base"] + 3 * Transformador["XN P (pu) Base"] + 3 * Transformador["XN S (pu) Base"])
-
-    Linha["Z1 (pu) Base"] = Linha["R1 (pu) Base"] + 1j * Linha["X1 (pu) Base"]
-    Linha["Z0 (pu) Base"] = Linha["R0 (pu) Base"] + 1j * Linha["X0 (pu) Base"]
-
-    Carga["Z1 (pu) Base"] = Carga["R1 (pu) Base"] + 1j * Carga["X1 (pu) Base"]
-    Carga["ZN (pu) Base"] = Carga["RN (pu) Base"] + 1j * Carga["XN (pu) Base"]
-    Carga["Z0 (pu) Base"] = Carga["R1 (pu) Base"] + 1j * (Carga["X1 (pu) Base"] + 3 * Carga["ZN (pu) Base"])
-
-    Configuracoes["Z (pu) Base"] = Configuracoes["Resistência de Falta (pu)"] + 1j * Configuracoes["Reatância de Falta (pu)"]
-    # Futuramente, para o Transformador 3 Enrolamentos...
-
-    
 
     Ybarra12, Zbarra12, Ybarra0, Zbarra0 = calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra)
 
@@ -145,10 +101,10 @@ def curto_circuito():
         resultados = valores_reais(resultados, Barra, Configuracoes, potencia_base, Maquina, Carga, Linha, Transformador)
     resultados = formatar_fasores(resultados)
 
-    exportar_matrizes(wb,Ybarra12, Zbarra12, Ybarra0, Zbarra0)
+    exportar_matrizes(caminho, Ybarra12, Zbarra12, Ybarra0, Zbarra0)
     
     exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
 
 
 print("Simulação Finalizada")
-curto_circuito()
+main(caminho = "xlfaults.xlsm")
