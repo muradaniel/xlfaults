@@ -13,68 +13,26 @@ import itertools
 import math # cálculos matemáticos
 import ctypes
 import os
-from legenda_tecnica import adicionar_margem_pdf
-from criacao_elementos import *  # noqa: F403
 
 
+from functions.leitura_e_tratamento_tabelas import tabelas_de_dados
+from diagrama.legenda_tecnica import adicionar_margem_pdf
+from diagrama.criacao_elementos import *  # noqa: F403
+from diagrama.organizacao_grafo import Grafo
 
-#----------------------------------------------------------------------------------------------------------------------
-#--------------------------------------- FUNÇÕES & CLASSES ------------------------------------------------------------
-#----------------------------------------------------------------------------------------------------------------------
 def gerar_diagrama(caminho_excel="xlfaults.xlsm"):
-    class Tabelas:
-        inicio_dados = 0
 
-        def __init__(self, caminho_excel):
-            self.caminho_excel = caminho_excel  # <-- define o atributo
-            self.Barra = pd.read_excel(fr"{self.caminho_excel}", sheet_name="Barramentos", header=self.inicio_dados)
-            self.Maquina = pd.read_excel(fr"{self.caminho_excel}", sheet_name="Máquinas", header=self.inicio_dados)
-            self.Linha = pd.read_excel(fr"{self.caminho_excel}", sheet_name="Linhas de Transmissão", header=self.inicio_dados)
-            self.Transformador = pd.read_excel(fr"{self.caminho_excel}", sheet_name="Transformadores", header=self.inicio_dados)
-            self.Carga = pd.read_excel(fr"{self.caminho_excel}", sheet_name="Carga", header=self.inicio_dados)
-            #self.Transformador_3E = pd.read_excel(fr"{self.caminho_excel}", sheet_name="Transformador 3 Enrolamentos", header=self.inicio_dados)
+    #----------------------------------------------------------------------------------------------------------------------
+    #---------------------------------------- LEITURA DE DADOS DO EXCEL  --------------------------------------------------
+    #----------------------------------------------------------------------------------------------------------------------
 
-    tabelas = Tabelas(caminho_excel)
+    Maquina, Carga, Transformador, Linha, Barra, Transformador3E, Configuracoes = tabelas_de_dados(caminho_excel)
 
+    #----------------------------------------------------------------------------------------------------------------------
+    #---------------------------- MONTAGEM DO GRAFO PARA ORGANIZAÇÃO DOS ELEMENTOS ----------------------------------------
+    #----------------------------------------------------------------------------------------------------------------------
 
-    # Essa função tem como objetivo resumir as ligações entre todos os componentes com o objetivo de organizar a posição das barras.
-    def Grafo():
-        ligacao_entre_elementos = pd.DataFrame(columns=["Elemento", "Barra conectada"])
-        for tabela in [tabelas.Linha, tabelas.Transformador]:
-            for index, row in tabela.iterrows():
-                ligacao_entre_elementos.loc[len(ligacao_entre_elementos)] = [row["Nome"], int(row["Barra de"])]
-                ligacao_entre_elementos.loc[len(ligacao_entre_elementos)] = [row["Nome"], int(row["Barra para"])]
-        for tabela in [tabelas.Maquina, tabelas.Carga]:
-            for index, row in tabela.iterrows():
-                ligacao_entre_elementos.loc[len(ligacao_entre_elementos)] = [row["Nome"], int(row["Barra Conectada"])]
-        # for index, row in tabelas.Transformador_3E.iterrows():
-        #     try:
-        #         ligacao_entre_elementos.loc[len(ligacao_entre_elementos)] = [row["Nome"], int(row["Barra P"])]
-        #         ligacao_entre_elementos.loc[len(ligacao_entre_elementos)] = [row["Nome"], int(row["Barra S"])]
-        #         ligacao_entre_elementos.loc[len(ligacao_entre_elementos)] = [row["Nome"], int(row["Barra T"])]
-        #     except (ValueError, TypeError):
-        #         print(f"Aviso: erro ao processar linha {index} — Nome: {row['Nome']}")
-        #         continue
-
-        # Criando o Grafo:
-        G = nx.Graph()
-        G.add_nodes_from(tabelas.Barra["Número"].tolist()) # Cria os nós dos Barramentos
-        G.add_nodes_from(tabelas.Transformador["Nome"].tolist()) # Cria os nós dos Transformadores
-        G.add_nodes_from(tabelas.Linha["Nome"].tolist()) # Cria os nós das Linhas de Transmissões
-        G.add_nodes_from(tabelas.Maquina["Nome"].tolist()) # Cria os nós das Máquinas (Motores e Geradores)
-        G.add_nodes_from(tabelas.Carga["Nome"].tolist()) # Cria os nós das Cargas sem Rotações
-        #G.add_nodes_from(tabelas.Transformador_3E["Nome"].tolist()) # Cria os nós dos Transformadores de 3 Enrolamentos
-
-        
-        G.add_edges_from(list(zip(ligacao_entre_elementos["Elemento"].tolist(), ligacao_entre_elementos["Barra conectada"].tolist()))) # Cria as ligações entre os nós (arestas)
-        # Tipos de Layout
-        #posicao_elementos = nx.spring_layout(G, scale=50, iterations=300000, threshold=1e-9) # Esolher a tipo de Organização do Grafo, espaçamento entre os nós, e número de iterações
-        #posicao_elementos = pos = nx.nx_agraph.graphviz_layout(G, prog="sfdp")
-        posicao_elementos = nx.kamada_kawai_layout(G, scale=10)
-        # posicao_elementos = nx.planar_layout(G, scale=15)
-
-        #posicao_elementos = nx.spectral_layout(G, scale=70)
-        return G, posicao_elementos
+    G, posicao_elementos = Grafo(Linha, Transformador, Maquina, Carga, Barra)
 
 
     # Essa função tem como objetivo gerar cores para diferentes níveis de tensão
@@ -152,17 +110,11 @@ def gerar_diagrama(caminho_excel="xlfaults.xlsm"):
     #------------------------------------------------- VARIAVEIS ------------------------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
 
-    G, posicao_elementos = Grafo()
-
-    # Caso o usuário queira observar o grafo
-    #import matplotlib.pyplot as plt
     nx.draw(G, pos=posicao_elementos, with_labels=True, node_color='skyblue', edge_color='black', node_size=1000, font_size=12)
-    #plt.title("Meu Grafo")
-    #plt.show()
 
-    dicionario_cores = Gera_Cores_Tensoes(tabelas.Barra["Tensão (kV)"].tolist())
-    caminho_diagrama = fr"{tabelas.caminho_excel.replace("xlsm", "pdf")}"
-    wb = xw.Book(fr"{tabelas.caminho_excel}")
+    dicionario_cores = Gera_Cores_Tensoes(Barra["Tensão (kV)"].tolist())
+    caminho_diagrama = fr"{caminho_excel.replace("xlsm", "pdf")}"
+    wb = xw.Book(fr"{caminho_excel}")
     sheet = wb.sheets['Oculto']
     nome_caso = sheet.range('A2').value
     potencia_base = sheet.range('A1').value
@@ -182,15 +134,15 @@ def gerar_diagrama(caminho_excel="xlfaults.xlsm"):
 
 
     # Desenhando o Elemento BARRA ****************************************************************************************
-        for index, row in tabelas.Barra.iterrows():
+        for index, row in Barra.iterrows():
             barra = row["Número"]
             tensao = row["Tensão (kV)"]
             posicao = posicao_elementos[barra]
-            d += Barramento().at(posicao).label(f"Barra {barra}\n{tensao} kV").color(dicionario_cores[tensao])
+            d += Desenho_Barra().at(posicao).label(f"Barra {barra}\n{tensao} kV").color(dicionario_cores[tensao])
 
 
     # Desenhando o Elemento Maquina **************************************************************************************
-        for index, row in tabelas.Maquina.iterrows():
+        for index, row in Maquina.iterrows():
             barra = row["Barra Conectada"]
             tensao = row["Tensão (kV)"]
             potencia = row["Potência Nominal (MVA)"]
@@ -206,14 +158,14 @@ def gerar_diagrama(caminho_excel="xlfaults.xlsm"):
                 type = "G"
             else:
                 type = "M"
-            maquina = Maquina(cor=dicionario_cores[tensao], type=type).at(posicao_gerador).theta(teta+180).label(f"{nome}\n{tensao} kV\n{conexao}\n{potencia} MVA")
+            maquina = Desenho_Maquina(cor=dicionario_cores[tensao], type=type).at(posicao_gerador).theta(teta+180).label(f"{nome}\n{tensao} kV\n{conexao}\n{potencia} MVA")
             d += maquina
             ponto_c = maquina.absanchors['C']
             d += elm.Line().at(posicao_barra).to(ponto_c).color(dicionario_cores[tensao])
 
             
     # Desenhando o Elemento Transformador ********************************************************************************
-        for index, row in tabelas.Transformador.iterrows():
+        for index, row in Transformador.iterrows():
             nome = row["Nome"]
             posicao_barra_de = posicao_elementos[row["Barra de"]]
             posicao_barra_para = posicao_elementos[row["Barra para"]]
@@ -225,7 +177,7 @@ def gerar_diagrama(caminho_excel="xlfaults.xlsm"):
 
             teta = math.degrees(math.atan2(posicao_barra_para[1] - posicao_barra_de[1], posicao_barra_para[0] - posicao_barra_de[0]))
             xm, ym = Ajustes_trafos(posicao_barra_de, posicao_barra_para, posicao_transformador)
-            trafo = Transformador(cor_primario=dicionario_cores[tensao_primario], cor_secundario=dicionario_cores[tensao_secundario], conexao=conexao).at(posicao_transformador).theta(teta).label(f"{nome}\n{tensao_primario}-{tensao_secundario} kV\n{potencia} MVA")
+            trafo = Desenho_Transformador(cor_primario=dicionario_cores[tensao_primario], cor_secundario=dicionario_cores[tensao_secundario], conexao=conexao).at(posicao_transformador).theta(teta).label(f"{nome}\n{tensao_primario}-{tensao_secundario} kV\n{potencia} MVA")
             d += trafo
             ponto_p = trafo.absanchors['p']
             ponto_s = trafo.absanchors['s']
@@ -234,7 +186,7 @@ def gerar_diagrama(caminho_excel="xlfaults.xlsm"):
 
 
     # Desenhando o Elemento Linha ********************************************************************************
-        for index, row in tabelas.Linha.iterrows():
+        for index, row in Linha.iterrows():
             nome = row["Nome"]
             posicao_barra_de = posicao_elementos[row["Barra de"]]
             posicao_barra_para = posicao_elementos[row["Barra para"]]
@@ -247,7 +199,7 @@ def gerar_diagrama(caminho_excel="xlfaults.xlsm"):
 
 
     # Desenhando o Elemento Carga **************************************************************************************
-        for index, row in tabelas.Carga.iterrows():
+        for index, row in Carga.iterrows():
             barra = row["Barra Conectada"]
             tensao = row["Tensão (kV)"]
             nome = row["Nome"]
@@ -262,7 +214,7 @@ def gerar_diagrama(caminho_excel="xlfaults.xlsm"):
 
     # Desenhando o Elemento Transformador de 3 Enrolamentos ***************************************************************
         
-        # for index, row in tabelas.Transformador_3E.iterrows():
+        # for index, row in Transformador_3E.iterrows():
         #     barra_p = row["Barra P"]
         #     barra_s = row["Barra S"]
         #     barra_t = row["Barra T"]

@@ -1,3 +1,6 @@
+# OBS: Este cálculo serve para gerar um grafo direcionado e ponderado,
+# onde as arestas representam as conexões entre os barramentos e os pesos representam a defasagem associada a cada conexão.
+
 import networkx as nx
 
 def correcao_defasagem(Linha, Transformador):
@@ -8,16 +11,6 @@ def correcao_defasagem(Linha, Transformador):
                 defasagem = row['Defasagem (°)']
                 G.add_edge(row['Barra de'], row['Barra para'], weight=defasagem)
                 G.add_edge(row['Barra para'], row['Barra de'], weight=-defasagem)
-                #tipo = row["Tipo de Conexão"]
-                #if tipo in ["Yt-D", "Y-D"]:
-                    #G.add_edge(row['Barra de'], row['Barra para'], weight=-30)
-                    #G.add_edge(row['Barra para'], row['Barra de'], weight=30)
-                #elif tipo in ["D-Yt", "D-Y"]:
-                    #G.add_edge(row['Barra de'], row['Barra para'], weight=30)
-                    #G.add_edge(row['Barra para'], row['Barra de'], weight=-30)
-                #else:
-                    #G.add_edge(row['Barra de'], row['Barra para'], weight=0)
-                    #G.add_edge(row['Barra para'], row['Barra de'], weight=0)
             else: # Se a tabela for linha
                 G.add_edge(row['Barra de'], row['Barra para'], weight=0)
                 G.add_edge(row['Barra para'], row['Barra de'], weight=0)

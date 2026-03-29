@@ -47,7 +47,6 @@ def main(caminho):
     # DADOS EXTRAS/COMPLEMENTARES
     data = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
 
-
     # MATRIZES DE TRANSFORMAÇÕES
     alfa = cmath.rect(1, math.radians(120)) # 1<120°
 
