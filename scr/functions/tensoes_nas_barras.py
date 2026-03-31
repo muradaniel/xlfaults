@@ -53,6 +53,6 @@ def tensoes_barras(Barra, Zbarra12, Zbarra0, resultados, Configuracoes, G, T012a
     
         resultados['Tensões nas Barras'].append(tabela_tensoes_barras_corrigidas)
         resultados['Tensões nas Barras - Não Corrigidas'].append(tabela_tensoes_barras_nao_corrigidas)
-
+    print("Tensões nas barras calculadas com sucesso!")
     return resultados
  

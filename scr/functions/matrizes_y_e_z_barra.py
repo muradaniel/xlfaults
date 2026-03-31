@@ -1,10 +1,10 @@
 # OBS1: Abaixo, foi utilizado o método das submatrizes de admitâncias
-# OBS2: As linhas que o somatório complex(0, 0) podemos apagar, deixei mais a carater ilustrativo
-# OBS3: Será Necessário realizar um tratamento para o caso de barras isoladas, para evitar erros na inversão da matriz Ybarra0
+# OBS2: As linhas que o somatório complex(0, 0) podemos apagar, deixei mais a carater didático
+# OBS3: Será Necessário realizar um tratamento para o caso de barras isoladas e ilhas, para evitar erros na inversão da matriz Ybarra0
 
 import pandas as pd
 import numpy as np
-#from functions.regularizar_Ybarra0 import regularizar_Ybarra0
+#from functions.regularizar_Ybarra0 import regularizar_Ybarra0 # Será adicionado futuramente
 
 def calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra):
 
@@ -73,7 +73,7 @@ def calcular_matrizes(Maquina, Transformador, Linha, Carga, Barra):
 
     # ---------------------------- CÁLCULOS DA ZBARRA (+), (-) ----------------------------
 
-
-    #Zbarra0 = regularizar_Ybarra0(Ybarra0, Barra) # Regulariza a matriz Ybarra0 e obtém Zbarra0, tratando o caso de barras isoladas
+    #Zbarra0 = regularizar_Ybarra0(Ybarra0, Barra) # Regularizar a matriz Ybarra0 e obtém Zbarra0, tratando o caso de barras isoladas e ilhas
     Zbarra0 = pd.DataFrame(np.linalg.inv(Ybarra0.values), index = Barra['Número'].tolist(), columns = Barra['Número'].tolist())
+    print("Matrizes Ybarra e Zbarra calculadas com sucesso!")
     return Ybarra12, Zbarra12, Ybarra0, Zbarra0#, isoladas

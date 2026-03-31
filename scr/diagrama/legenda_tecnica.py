@@ -1,96 +1,154 @@
-import fitz
+import fitz  # PyMuPDF
+import os
 
 
-# Essa função tem como objetivo criar uma margem branca no documento, evitando assim a interção
-def adicionar_margem_pdf(arquivo_entrada, caminho_diagrama, margem_pt, nome_caso, potencia_base, simulador, data, dicionario_cores):
-    doc_original = fitz.open(arquivo_entrada)
-    novo_doc = fitz.open()
+def adicionar_margem_pdf(
+    arquivo_entrada,
+    arquivo_saida,
+    margem_pt,
+    nome_caso,
+    potencia_base,
+    simulador,
+    data,
+    dicionario_cores
+):
 
-    for page in doc_original:
-        largura, altura = page.rect.width, page.rect.height
-        nova_largura = largura + 2 * margem_pt
-        nova_altura = altura + 2 * margem_pt
+    # 🔹 Arquivo temporário (evita conflito)
+    arquivo_temp = arquivo_saida.replace(".pdf", "_temp.pdf")
 
-        # Criar nova página no novo documento
-        nova_pagina = novo_doc.new_page(width=nova_largura, height=nova_altura)
+    # =========================
+    # ETAPA 1: Criar PDF com margem
+    # =========================
+    with fitz.open(arquivo_entrada) as doc_original:
+        novo_doc = fitz.open()
 
-        # Inserir a página antiga com deslocamento (margem)
-        nova_pagina.show_pdf_page(
-            fitz.Rect(margem_pt, margem_pt, margem_pt + largura, margem_pt + altura),
-            doc_original,
-            page.number
-        )
-    doc_original.close()
-    novo_doc.save(caminho_diagrama)
-    novo_doc.close()
+        for page in doc_original:
+            largura, altura = page.rect.width, page.rect.height
 
-    doc = fitz.open(caminho_diagrama)
-    pagina = doc[0] # Seleciona a página (ex: primeira página)
+            nova_pagina = novo_doc.new_page(
+                width=largura + 2 * margem_pt,
+                height=altura + 2 * margem_pt
+            )
 
-    # Pega os tamanhos do PDF
-    tamanho = pagina.rect
-    largura = tamanho.width
-    altura = tamanho.height
+            nova_pagina.show_pdf_page(
+                fitz.Rect(margem_pt, margem_pt, margem_pt + largura, margem_pt + altura),
+                doc_original,
+                page.number
+            )
 
-    # Cria o retângulo da legenda técnica:
-    distanciaH = 550 # Determina a Largaura da Legenda
-    distanciaV = 125 # Determina a Altura da Legenda
-    rect = fitz.Rect(largura-distanciaH, altura-distanciaV, largura-20, altura-20)
-    pagina.draw_rect(rect, color=(0, 0, 0), width=3, fill=(1, 1, 1))  # Retângulo preto
-    rect = fitz.Rect(20, 20, largura-20, altura-20)
-    pagina.draw_rect(rect, color=(0, 0, 0), width=2)  # Retângulo preto
+        # salva arquivo temporário
+        if os.path.exists(arquivo_temp):
+            os.remove(arquivo_temp)
 
+        novo_doc.save(arquivo_temp)
+        novo_doc.close()
 
-    # Insere dados da 1° Linha (Nome do Caso de Estudo)
-    pagina.draw_line(p1=(largura-distanciaH, altura-distanciaV+35), p2=(largura-20, altura-distanciaV+35), color=(0, 0, 0)) # Referencia
-    pagina.insert_text((largura-distanciaH + 5, altura-distanciaV+10), "Nome do Caso:", fontsize=10, color=(0, 0, 0)) # -25
-    pagina.insert_text((largura-distanciaH + 5, altura-distanciaV+32), nome_caso, fontsize=18, color=(0, 0, 0)) # -3
+    # =========================
+    # ETAPA 2: Adicionar legenda
+    # =========================
+    doc = fitz.open(arquivo_temp)
+    pagina = doc[0]
 
+    largura = pagina.rect.width
+    altura = pagina.rect.height
 
-    # Insere dados da 2° Linha (Tipo de Curto, Barra em Curto, Impedância de Falta)
-    pagina.draw_line(p1=(largura-distanciaH, altura-distanciaV+70), p2=(largura-20, altura-distanciaV+70), color=(0, 0, 0))
-    pagina.insert_text((largura-distanciaH + 5, altura-distanciaV+45), "Tipo de Estudo Elétrico:", fontsize=10, color=(0, 0, 0))
-    pagina.insert_text((largura-distanciaH + 5, altura-distanciaV+67), "Curto Circuito", fontsize=18, color=(0, 0, 0))
+    # 📐 Layout
+    distanciaH = 550
+    distanciaV = 125
 
-    pagina.insert_text((largura-distanciaH + 230, altura-distanciaV+45), "Potência Base:", fontsize=10, color=(0, 0, 0))
-    pagina.insert_text((largura-distanciaH + 230, altura-distanciaV+67), f"{potencia_base} MVA", fontsize=18, color=(0, 0, 0))
+    x0 = largura - distanciaH
+    y0 = altura - distanciaV
 
-    pagina.insert_text((largura-distanciaH + 390, altura-distanciaV+45), "Software:", fontsize=10, color=(0, 0, 0))
-    pagina.insert_text((largura-distanciaH + 390, altura-distanciaV+67), f"{simulador}", fontsize=18, color=(0, 0, 0))
+    # 🔲 Molduras
+    pagina.draw_rect(
+        fitz.Rect(x0, y0, largura - 20, altura - 20),
+        color=(0, 0, 0),
+        width=3,
+        fill=(1, 1, 1)
+    )
 
+    pagina.draw_rect(
+        fitz.Rect(20, 20, largura - 20, altura - 20),
+        color=(0, 0, 0),
+        width=2
+    )
 
-    # Insere dados da 3° Linha (Data, Tensão Pré Falta, "Diagram Unifilar")
-    pagina.draw_line(p1=(largura-distanciaH, altura-distanciaV+105), p2=(largura-20, altura-distanciaV+105), color=(0, 0, 0))
+    # 🔹 Linhas horizontais
+    pagina.draw_line((x0, y0 + 35), (largura - 20, y0 + 35), color=(0, 0, 0))
+    pagina.draw_line((x0, y0 + 70), (largura - 20, y0 + 70), color=(0, 0, 0))
+    pagina.draw_line((x0, y0 + 105), (largura - 20, y0 + 105), color=(0, 0, 0))
 
-    pagina.insert_text((largura-distanciaH + 5, altura-distanciaV+80), "Data:", fontsize=10, color=(0, 0, 0))
-    pagina.insert_text((largura-distanciaH + 5, altura-distanciaV+100), data, fontsize=18, color=(0, 0, 0))
+    # 🔹 Linha 1
+    pagina.insert_text((x0 + 5, y0 + 10), "Nome do Caso:", fontsize=10)
+    pagina.insert_text((x0 + 5, y0 + 32), nome_caso, fontsize=18)
 
-    pagina.insert_text((largura-distanciaH + 230, altura-distanciaV+80), "Tensão Pré-Falta:", fontsize=10, color=(0, 0, 0))
-    pagina.insert_text((largura-distanciaH + 230, altura-distanciaV+100), "1 < 0° pu", fontsize=18, color=(0, 0, 0))
+    # 🔹 Linha 2
+    pagina.insert_text((x0 + 5, y0 + 45), "Tipo de Estudo Elétrico:", fontsize=10)
+    pagina.insert_text((x0 + 5, y0 + 67), "Análise de Curto Circuito", fontsize=18)
 
-    pagina.insert_text((largura-distanciaH + 345, altura-distanciaV+80), "Tipo de Representação:", fontsize=10, color=(0, 0, 0))
-    pagina.insert_text((largura-distanciaH + 345, altura-distanciaV+100), "Diagrama Unifilar", fontsize=18, color=(0, 0, 0))
+    pagina.insert_text((x0 + 230, y0 + 45), "Potência Base:", fontsize=10)
+    pagina.insert_text((x0 + 230, y0 + 67), f"{potencia_base} MVA", fontsize=18)
 
+    pagina.insert_text((x0 + 390, y0 + 45), "Software:", fontsize=10)
+    pagina.insert_text((x0 + 390, y0 + 67), simulador, fontsize=18)
 
-    # Insere as divisões verticais
-    pagina.draw_line(p1=(largura-300-30, altura-distanciaV+35), p2=(largura-300-30, altura-distanciaV+105), color=(0, 0, 0)) # Linha vertical
-    pagina.draw_line(p1=(largura-140-30, altura-distanciaV+35), p2=(largura-140-30, altura-distanciaV+70), color=(0, 0, 0)) # Linha vertical
-    pagina.draw_line(p1=(largura-170-40, altura-distanciaV+70), p2=(largura-170-40, altura-distanciaV+105), color=(0, 0, 0)) # Linha vertical
+    # 🔹 Linha 3
+    pagina.insert_text((x0 + 5, y0 + 80), "Data:", fontsize=10)
+    pagina.insert_text((x0 + 5, y0 + 100), data, fontsize=18)
 
-    c = 0
-    inicio_x, inicio_y = largura-distanciaH-80, altura-distanciaV+60
-    for chave, valor in dicionario_cores.items():
-        pagina.insert_text((inicio_x - c, inicio_y+8), f"{str((chave))} kV", fontsize=18, color=(0, 0, 0))
-        c = c + 20
-        center = fitz.Point(inicio_x - c, inicio_y)  # coordenadas X e Y
-        radius = 10
-        c = c + 120
-        shape = pagina.new_shape()
-        shape.draw_circle(center, radius)
-        shape.finish(color=valor, fill=valor, width=2)  # apenas contorno vermelho
-        shape.commit()
-    c = c + 80
-    pagina.insert_text((inicio_x - c, inicio_y+8), "Níveis de Tensão:", fontsize=20, color=(0, 0, 0))
+    pagina.insert_text((x0 + 230, y0 + 80), "Tensão Pré-Falta:", fontsize=10)
+    pagina.insert_text((x0 + 230, y0 + 100), "1 < 0° pu", fontsize=18)
 
-    # Salvar em um novo arquivo .pdf
-    doc.save(fr"{caminho_diagrama.replace(".pdf","")}_Legendado.pdf")
+    pagina.insert_text((x0 + 345, y0 + 80), "Tipo de Representação:", fontsize=10)
+    pagina.insert_text((x0 + 345, y0 + 100), "Diagrama Unifilar", fontsize=18)
+
+    # 🔹 Linhas verticais
+    pagina.draw_line((largura - 330, y0 + 35), (largura - 330, y0 + 105), color=(0, 0, 0))
+    pagina.draw_line((largura - 170, y0 + 35), (largura - 170, y0 + 70), color=(0, 0, 0))
+    pagina.draw_line((largura - 210, y0 + 70), (largura - 210, y0 + 105), color=(0, 0, 0))
+
+    # 🎨 Legenda de cores
+    inicio_x = x0 - 80
+    inicio_y = y0 + 60
+    espacamento = 140
+
+    shape = pagina.new_shape()
+
+    for i, (chave, valor) in enumerate(dicionario_cores.items()):
+        x = inicio_x - i * espacamento
+
+        pagina.insert_text((x, inicio_y + 8), f"{chave} kV", fontsize=18)
+
+        shape.draw_circle(fitz.Point(x - 25, inicio_y), 10)
+        shape.finish(color=valor, fill=valor)
+
+    shape.commit()
+
+    pagina.insert_text(
+        (inicio_x - (len(dicionario_cores) * espacamento) - 80, inicio_y + 8),
+        "Níveis de Tensão:",
+        fontsize=20
+    )
+
+    # =========================
+    # ETAPA 3: Salvar FINAL
+    # =========================
+    arquivo_saida = f"{nome_caso} - Diagrama Unifilar.pdf"
+
+    if os.path.exists(arquivo_saida):
+        os.remove(arquivo_saida)
+
+    doc.save(arquivo_saida)
+    doc.close()
+
+    # 🔥 Remove temporário
+    if os.path.exists(arquivo_temp):
+        os.remove(arquivo_temp)
+
+    # 🔥 Remove temporário
+    if os.path.exists(arquivo_temp):
+        os.remove(arquivo_temp)
+
+    # 🔥 Remove PDF original (gerado pelo schemdraw)
+    if os.path.exists(arquivo_entrada):
+        os.remove(arquivo_entrada)

@@ -1,6 +1,3 @@
-import xlwings as xw # Leitura e Inserção de Dados no Excel
-import pandas as pd # Leitura e Manipulação de Dados do Excel
-from datetime import datetime # Para Controle de Tempo de Execução
 import math # Cálculos Matemáticos
 import cmath # Cálculos com Números Complexos
 import numpy as np # Manipulação de Matrizes
@@ -44,9 +41,6 @@ def main(caminho):
                   'Correntes de Contibuição - Não Corrigidas': [],
                   }
 
-    # DADOS EXTRAS/COMPLEMENTARES
-    data = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-
     # MATRIZES DE TRANSFORMAÇÕES
     alfa = cmath.rect(1, math.radians(120)) # 1<120°
 
@@ -54,12 +48,6 @@ def main(caminho):
         [1,      1,               1  ],
         [1,    alfa**2,          alfa],
         [1,     alfa,          alfa**2]
-    ])
-
-    Tabc012 = (1/3) * np.array([
-        [1,       1,            1   ],
-        [1,     alfa,        alfa**2],
-        [1,     alfa**2,       alfa ]
     ])
 
     #----------------------------------------------------------------------------------------------------------------------
@@ -94,14 +82,18 @@ def main(caminho):
     resultados = correntes_injetadas(Ybarra12, Ybarra0, resultados, Configuracoes, Barra, T012abc)
 
     #---------------------------------------------------------------------------------------------------------------------
-    #------------------------------------- EXPORTAR RESULTADOS -----------------------------------------------------------
+    #----------------------------------- UNIDADE DE SAÍDA (REAL OU PU) ---------------------------------------------------
     #---------------------------------------------------------------------------------------------------------------------
+
     if unidade == "Real":
         resultados = valores_reais(resultados, Barra, Configuracoes, potencia_base, Maquina, Carga, Linha, Transformador)
     resultados = formatar_fasores(resultados)
 
+    #---------------------------------------------------------------------------------------------------------------------
+    #------------------------------------- EXPORTAR RESULTADOS -----------------------------------------------------------
+    #---------------------------------------------------------------------------------------------------------------------
+
     exportar_matrizes(caminho, Ybarra12, Zbarra12, Ybarra0, Zbarra0)
-    
     exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
 
 

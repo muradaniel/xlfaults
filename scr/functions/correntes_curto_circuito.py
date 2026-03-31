@@ -69,5 +69,6 @@ def correntes_curto(resultados, df_configuracoes, Zbarra12, Zbarra0, T012abc, Ba
 
         resultados['Correntes de Falta'].append(tabela_curto_circuito)
 
+    print("Correntes de falta calculadas com sucesso!")
     return resultados
 

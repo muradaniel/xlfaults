@@ -44,4 +44,4 @@ def exportar_matrizes(caminho, Ybarra12, Zbarra12, Ybarra0, Zbarra0):
         # 4. AUTOAJUSTE DE LARGURA
         tabela.columns.autofit()
 
-    print("Planilhas limpas, matrizes exportadas e formatadas com sucesso!")
+    print("Matrizes exportadas com sucesso para o Excel!")

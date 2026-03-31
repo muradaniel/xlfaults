@@ -90,5 +90,5 @@ def valores_reais(resultados, Barra, Configuracoes, potencia_base, Maquinas, Car
             df.loc[index_tensoes, colunas_tensoes] *= (Vb / np.sqrt(3))
         
         resultados['Tensões nas Barras'][index] = df
-
+    print("Valores PU x REAL convertidos com sucesso!")
     return resultados

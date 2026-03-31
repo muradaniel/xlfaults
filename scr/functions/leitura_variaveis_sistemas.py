@@ -6,5 +6,5 @@ def variaveis_sistema(caminho, nome_planilha):
     potencia_base = ws.range('A1').value
     nome_caso_estudo = ws.range('A2').value
     unidade = ws.range('A3').value
-
+    print("Variaveis do sistema lidas com sucesso!")
     return potencia_base, nome_caso_estudo, unidade

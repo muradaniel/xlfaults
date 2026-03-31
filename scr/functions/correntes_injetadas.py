@@ -40,5 +40,6 @@ def correntes_injetadas(Ybarra12, Ybarra0, resultados, Configuracoes, Barra, T01
 
         resultados['Correntes Injetadas nos Barramentos'].append(df)
 
+    print("Correntes injetadas nos barramentos calculadas com sucesso!")
     # Retornar dict novamente, não a lista
     return resultados

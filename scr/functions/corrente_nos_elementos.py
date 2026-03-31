@@ -164,4 +164,6 @@ def corrente_nos_elementos(Configuracoes, Linha, Maquina, Carga, Transformador, 
 
         tabela_corrente_elementos = pd.DataFrame(linhas_corrigidas)
         resultados['Correntes de Contribuição'].append(tabela_corrente_elementos)
+
+        print("Correntes nos elementos calculadas com sucesso!")
     return resultados     

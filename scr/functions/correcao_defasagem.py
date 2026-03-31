@@ -14,4 +14,5 @@ def correcao_defasagem(Linha, Transformador):
             else: # Se a tabela for linha
                 G.add_edge(row['Barra de'], row['Barra para'], weight=0)
                 G.add_edge(row['Barra para'], row['Barra de'], weight=0)
+    print("Grafo de defasagem montado com sucesso!")
     return G

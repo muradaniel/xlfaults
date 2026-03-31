@@ -9,7 +9,7 @@ from schemdraw.segments import SegmentCircle
 
 
 # Criando barramento
-class Desenho_Barra(elm.Element):
+class Simbolo_Barra(elm.Element):
     def __init__(self, length=3, **kwargs):
         super().__init__(**kwargs)
         altura = 1 # Tamanho do barramento
@@ -88,7 +88,7 @@ class Curto(elm.ElementImage):
 
 
 # Criando trafo de 2 enrolamentos
-class Desenho_Transformador(elm.Element):
+class Simbolo_Transformador(elm.Element):
     def __init__(self, cor_primario=None, cor_secundario=None, conexao=None, **kwargs):
         super().__init__(**kwargs)
         raio = 0.6
@@ -133,7 +133,7 @@ class Desenho_Transformador(elm.Element):
     )
         
 
-class Desenho_Maquina(elm.Element):
+class Simbolo_Maquina(elm.Element):
     def __init__(self, cor=None, type=None, **kwargs):
         super().__init__(**kwargs)  # Isso vem primeiro!
         raio = 0.6
