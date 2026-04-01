@@ -96,16 +96,16 @@ def adicionar_margem_pdf(
     pagina.insert_text((x0 + 5, y0 + 80), "Data:", fontsize=10)
     pagina.insert_text((x0 + 5, y0 + 100), data, fontsize=18)
 
-    pagina.insert_text((x0 + 230, y0 + 80), "Tensão Pré-Falta:", fontsize=10)
-    pagina.insert_text((x0 + 230, y0 + 100), "1 < 0° pu", fontsize=18)
+    pagina.insert_text((x0 + 230, y0 + 80), "Regime:", fontsize=10)
+    pagina.insert_text((x0 + 230, y0 + 100), "Subtransitório", fontsize=18)
 
-    pagina.insert_text((x0 + 345, y0 + 80), "Tipo de Representação:", fontsize=10)
-    pagina.insert_text((x0 + 345, y0 + 100), "Diagrama Unifilar", fontsize=18)
+    pagina.insert_text((x0 + 355, y0 + 80), "Tipo de Representação:", fontsize=10)
+    pagina.insert_text((x0 + 355, y0 + 100), "Diagrama Unifilar", fontsize=18)
 
     # 🔹 Linhas verticais
     pagina.draw_line((largura - 330, y0 + 35), (largura - 330, y0 + 105), color=(0, 0, 0))
     pagina.draw_line((largura - 170, y0 + 35), (largura - 170, y0 + 70), color=(0, 0, 0))
-    pagina.draw_line((largura - 210, y0 + 70), (largura - 210, y0 + 105), color=(0, 0, 0))
+    pagina.draw_line((largura - 200, y0 + 70), (largura - 200, y0 + 105), color=(0, 0, 0))
 
     # 🎨 Legenda de cores
     inicio_x = x0 - 80
