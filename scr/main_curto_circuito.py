@@ -38,7 +38,7 @@ def main(caminho):
                   'Correntes de Contribuição': [],
                   'Correntes Injetadas nos Barramentos': [],
                   'Tensões nas Barras - Não Corrigidas': [],
-                  'Correntes de Contibuição - Não Corrigidas': [],
+                  #'Correntes de Contibuição - Não Corrigidas': [],
                   }
 
     # MATRIZES DE TRANSFORMAÇÕES

@@ -1,3 +1,5 @@
+# OBS1: Código desenvolvido com IA, não entendi o esquema de funcionamento, sera melhorado
+
 import pandas as pd
 
 def exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes):
