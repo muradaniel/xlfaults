@@ -1,6 +1,8 @@
 import math # Cálculos Matemáticos
 import cmath # Cálculos com Números Complexos
 import numpy as np # Manipulação de Matrizes
+import xlwings as xw # Manipulação do Excel
+from datetime import datetime # Data e Hora
 
 from functions.correntes_curto_circuito import correntes_curto
 from functions.tensoes_nas_barras import tensoes_barras
@@ -14,6 +16,7 @@ from functions.conversao_valores_reais import valores_reais
 from functions.exportar_resultados import exportar_resultados
 from functions.leitura_e_tratamento_tabelas import tabelas_de_dados
 from functions.leitura_variaveis_sistemas import variaveis_sistema
+from exportar.exportar import gerar_relatorio_completo
 
 
 def main(caminho):
@@ -38,7 +41,6 @@ def main(caminho):
                   'Correntes de Contribuição': [],
                   'Correntes Injetadas nos Barramentos': [],
                   'Tensões nas Barras - Não Corrigidas': [],
-                  #'Correntes de Contibuição - Não Corrigidas': [],
                   }
 
     # MATRIZES DE TRANSFORMAÇÕES
@@ -95,6 +97,11 @@ def main(caminho):
 
     exportar_matrizes(caminho, Ybarra12, Zbarra12, Ybarra0, Zbarra0)
     exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
+
+    #wb = xw.Book("xlfaults.xlsm")
+    #sheet = wb.sheets["Relatório"]
+    #gerar_relatorio_curto(sheet, resultados, Configuracoes, "01/01/2021", start_row=2)
+    gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, nome_caso_estudo, unidade)
 
 
 print("Simulação Finalizada")
