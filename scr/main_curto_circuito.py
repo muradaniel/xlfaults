@@ -11,7 +11,7 @@ from functions.correcao_defasagem import correcao_defasagem
 from functions.corrente_nos_elementos import corrente_nos_elementos
 from functions.correntes_injetadas import correntes_injetadas
 from functions.converter_fasores import formatar_fasores
-from functions.exportar_matrizes import exportar_matrizes
+from exportar.exportar_matrizes import exportar_matrizes
 from functions.conversao_valores_reais import valores_reais
 from functions.exportar_resultados import exportar_resultados
 from functions.leitura_e_tratamento_tabelas import tabelas_de_dados
@@ -51,6 +51,8 @@ def main(caminho):
         [1,    alfa**2,          alfa],
         [1,     alfa,          alfa**2]
     ])
+
+    data = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
 
     #----------------------------------------------------------------------------------------------------------------------
     #---------------------------------------- CÁLCULO DAS MATRIZES --------------------------------------------------------
@@ -96,12 +98,8 @@ def main(caminho):
     #---------------------------------------------------------------------------------------------------------------------
 
     exportar_matrizes(caminho, Ybarra12, Zbarra12, Ybarra0, Zbarra0)
-    exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
-
-    #wb = xw.Book("xlfaults.xlsm")
-    #sheet = wb.sheets["Relatório"]
-    #gerar_relatorio_curto(sheet, resultados, Configuracoes, "01/01/2021", start_row=2)
-    gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, nome_caso_estudo, unidade)
+    #exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
+    gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, nome_caso_estudo, unidade, data)
 
 
 print("Simulação Finalizada")

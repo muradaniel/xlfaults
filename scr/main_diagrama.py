@@ -12,7 +12,7 @@ from diagrama.desenhando_maquina import Desenho_Maquina
 from diagrama.desenho_transformador import Desenho_Transformador
 from diagrama.desenhando_linha import Desenho_Linha
 from diagrama.desenhando_carga import Desenho_Carga
-#from diagrama.desenhando_transformador_3_enrolamentos import Desenho_Transformador_3_enrolamentos # Futuro...
+#from diagrama.desenhando_transformador_3_enrolamentos import Desenho_Transformador_3_enrolamentos # Futuro proximo...
 
 
 def gerar_diagrama(caminho_excel):
