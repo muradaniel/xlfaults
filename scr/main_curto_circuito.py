@@ -1,7 +1,7 @@
 import math # Cálculos Matemáticos
 import cmath # Cálculos com Números Complexos
 import numpy as np # Manipulação de Matrizes
-import xlwings as xw # Manipulação do Excel
+#import xlwings as xw # Manipulação do Excel
 from datetime import datetime # Data e Hora
 
 from functions.correntes_curto_circuito import correntes_curto
@@ -13,7 +13,7 @@ from functions.correntes_injetadas import correntes_injetadas
 from functions.converter_fasores import formatar_fasores
 from exportar.exportar_matrizes import exportar_matrizes
 from functions.conversao_valores_reais import valores_reais
-from functions.exportar_resultados import exportar_resultados
+#from functions.exportar_resultados import exportar_resultados # Precisa ser melhorado, muito simples...
 from functions.leitura_e_tratamento_tabelas import tabelas_de_dados
 from functions.leitura_variaveis_sistemas import variaveis_sistema
 from exportar.exportar import gerar_relatorio_completo

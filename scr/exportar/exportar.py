@@ -73,7 +73,11 @@ def gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, 
         # Gerar Título do Caso de Estudo
         sheet.range(f"B{ultima_linha}:H{ultima_linha}").merge() # Mescla as células para o título do caso de estudo
         titulo_caso_estudo = sheet.range(f"B{ultima_linha}") # Define a célula onde o título do caso de estudo será inserido
-        titulo_caso_estudo.value = f"Curto Circuito {row_configuracao['Tipo de Curto Circuito']} na Barra {row_configuracao['Barra de Ocorrência']}"
+        texto = f"Curto Circuito {row_configuracao['Tipo de Curto Circuito']}"
+        texto += f" na Barra {row_configuracao['Barra de Ocorrência']}"
+        texto += f" - Tensão Pré Falta {row_configuracao['Módulo Tensão Pré-Falta (pu)']} ∠ {row_configuracao['Ângulo Tensão Pré-Falta (graus)']}° PU"
+        texto += f" - Impedância de falta {(complex(round(row_configuracao['Z (pu) Base'].real, 2), round(row_configuracao['Z (pu) Base'].imag, 2)))} PU" 
+        titulo_caso_estudo.value = texto # Insere o título do caso de estudo
         titulo_caso_estudo.font.bold = True # Deixa o título em negrito
         titulo_caso_estudo.font.size = 18 # Define o tamanho da fonte do título
         titulo_caso_estudo.api.HorizontalAlignment = -4108  # xlCenter
