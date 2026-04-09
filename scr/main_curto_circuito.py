@@ -1,7 +1,6 @@
 import math # Cálculos Matemáticos
 import cmath # Cálculos com Números Complexos
 import numpy as np # Manipulação de Matrizes
-#import xlwings as xw # Manipulação do Excel
 from datetime import datetime # Data e Hora
 
 from functions.correntes_curto_circuito import correntes_curto
@@ -13,7 +12,6 @@ from functions.correntes_injetadas import correntes_injetadas
 from functions.converter_fasores import formatar_fasores
 from exportar.exportar_matrizes import exportar_matrizes
 from functions.conversao_valores_reais import valores_reais
-#from functions.exportar_resultados import exportar_resultados # Precisa ser melhorado, muito simples...
 from functions.leitura_e_tratamento_tabelas import tabelas_de_dados
 from functions.leitura_variaveis_sistemas import variaveis_sistema
 from exportar.exportar import gerar_relatorio_completo
@@ -101,6 +99,6 @@ def main(caminho):
     #exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
     gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, nome_caso_estudo, unidade, data)
 
-
-print("Simulação Finalizada")
-main(caminho = "xlfaults.xlsm")
+caminho = input("Digite o caminho do arquivo Excel:\n")
+main(caminho)
+print("Simulação Finalizada...")
