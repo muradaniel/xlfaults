@@ -1,3 +1,5 @@
+import sys
+
 from conversor_anafas_xlfaults.interface_de_conversao import selecionar_arquivo
 from conversor_anafas_xlfaults.transforma_anafas_em_tabela import Anafas_para_tabelas
 from conversor_anafas_xlfaults.adaptador_modelo_xlfaults import adaptador_de_tabela
@@ -33,5 +35,6 @@ def main(caminho):
     transferir_dados_para_excel(caminho, "Carga", Carga)
     transferir_dados_para_excel(caminho, "Linhas de Transmissão", Linha)
 
-caminho = input("Entre com o caminho Excel:\n")
-main(caminho)
+caminho = sys.argv[1]
+main(caminho_excel=caminho)
+print("Conversão Realizada com Sucesso!")

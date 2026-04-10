@@ -1,5 +1,6 @@
 from datetime import datetime
 import schemdraw  # Realizar os desenhos elétricos
+import sys
 
 from functions.leitura_e_tratamento_tabelas import tabelas_de_dados
 from diagrama.legenda_tecnica import adicionar_margem_pdf
@@ -21,7 +22,7 @@ def main(caminho_excel):
     #------------------------------- LEITURA DE DADOS DO EXCEL & VARIAVEIS  -----------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
 
-    Maquina, Carga, Transformador, Linha, Barra, Transformador3E, Configuracoes = tabelas_de_dados(caminho_excel)
+    Maquina, Carga, Transformador, Linha, Barra, Configuracoes = tabelas_de_dados(caminho_excel)
     potencia_base, nome_caso_estudo, unidade = variaveis_sistema(caminho_excel, nome_planilha="Oculto")
     caminho_diagrama = fr"{caminho_excel.replace("xlsm", "pdf")}"
     simulador = "Xlfaults" # Nome do Simulador
@@ -97,5 +98,8 @@ def main(caminho_excel):
     dicionario_cores
 )
 
+caminho = sys.argv[1]
+main(caminho_excel=caminho)
+print("Diagrama Elétrico Gerado com Sucesso!")
 
-main(caminho_excel="xlfaults.xlsm")
+

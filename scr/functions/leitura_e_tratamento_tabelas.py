@@ -11,7 +11,7 @@ def tabelas_de_dados(caminho):
     Transformador = pd.read_excel(fr"{caminho}", sheet_name = "Transformadores")
     Linha = pd.read_excel(fr"{caminho}", sheet_name= "Linhas de Transmissão")
     Barra = pd.read_excel(fr"{caminho}", sheet_name= "Barramentos")
-    Transformador3E = pd.read_excel(fr"{caminho}", sheet_name = "Transformadores 3 Enrolamentos") # Ainda não implementado...
+    #Transformador3E = pd.read_excel(fr"{caminho}", sheet_name = "Transformadores 3 Enrolamentos") # Ainda não implementado...
     Configuracoes = pd.read_excel(fr"{caminho}", sheet_name= "Configurações") # Aqui poderemos rodar várias simulações
     
     # Cálculos de Impedâncias na base do sistema
@@ -38,4 +38,4 @@ def tabelas_de_dados(caminho):
 
      
     print("Tabelas de dados lidas e tratadas com sucesso!")
-    return Maquina, Carga, Transformador, Linha, Barra, Transformador3E, Configuracoes
+    return Maquina, Carga, Transformador, Linha, Barra, Configuracoes

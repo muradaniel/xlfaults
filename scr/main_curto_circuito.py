@@ -1,6 +1,7 @@
 import math # Cálculos Matemáticos
 import cmath # Cálculos com Números Complexos
 import numpy as np # Manipulação de Matrizes
+import sys
 from datetime import datetime # Data e Hora
 
 from functions.correntes_curto_circuito import correntes_curto
@@ -24,7 +25,7 @@ def main(caminho):
     #----------------------------------------------------------------------------------------------------------------------
 
     # LEITURA DOS ELEMENTOS DO SISTEMA
-    Maquina, Carga, Transformador, Linha, Barra, Transformador3E, Configuracoes = tabelas_de_dados(caminho)
+    Maquina, Carga, Transformador, Linha, Barra, Configuracoes = tabelas_de_dados(caminho)
 
     # LEITURA DAS CONFIGURAÇÕES DO SISTEMA 
     potencia_base, nome_caso_estudo, unidade = variaveis_sistema(caminho, nome_planilha="Oculto")
@@ -96,9 +97,8 @@ def main(caminho):
     #---------------------------------------------------------------------------------------------------------------------
 
     exportar_matrizes(caminho, Ybarra12, Zbarra12, Ybarra0, Zbarra0)
-    #exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
     gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, nome_caso_estudo, unidade, data)
 
-caminho = input("Entre com o caminho Excel:\n")
+caminho = sys.argv[1]
 main(caminho)
 print("Simulação Finalizada...")

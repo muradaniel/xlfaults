@@ -139,6 +139,7 @@ def adicionar_margem_pdf(
         os.remove(arquivo_saida)
 
     doc.save(arquivo_saida)
+    os.startfile(arquivo_saida)
     doc.close()
 
     # 🔥 Remove temporário
@@ -152,3 +153,5 @@ def adicionar_margem_pdf(
     # 🔥 Remove PDF original (gerado pelo schemdraw)
     if os.path.exists(arquivo_entrada):
         os.remove(arquivo_entrada)
+
+    

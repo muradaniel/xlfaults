@@ -1,0 +1,8 @@
+COMANDO PARA VER O PYTHON DO SISTEMA: py -3 -c "import sys; print(sys.executable)"
+
+
+COMANDO PARA INSTALAR AS BIBLIOTECAS:  "CAMINHO PYTHON" -m pip install -r "CAMINHO REQUERIMENTOS"
+
+
+COMANDO PARA INSTALAR BIBLIOTECA ESPECÍFICA: "C:\Users\danie\AppData\Local\Programs\Python\Python312\python.exe" -m pip install BIBLIOTECA
+
