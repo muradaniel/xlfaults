@@ -99,6 +99,6 @@ def main(caminho):
     #exportar_resultados(Ybarra12, Zbarra12, Ybarra0, Zbarra0, resultados, Configuracoes)
     gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, nome_caso_estudo, unidade, data)
 
-caminho = input("Digite o caminho do arquivo Excel:\n")
+caminho = input("Entre com o caminho Excel:\n")
 main(caminho)
 print("Simulação Finalizada...")

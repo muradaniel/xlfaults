@@ -15,7 +15,7 @@ from diagrama.desenhando_carga import Desenho_Carga
 #from diagrama.desenhando_transformador_3_enrolamentos import Desenho_Transformador_3_enrolamentos # Futuro proximo...
 
 
-def gerar_diagrama(caminho_excel):
+def main(caminho_excel):
 
     #----------------------------------------------------------------------------------------------------------------------
     #------------------------------- LEITURA DE DADOS DO EXCEL & VARIAVEIS  -----------------------------------------------
@@ -98,4 +98,4 @@ def gerar_diagrama(caminho_excel):
 )
 
 
-gerar_diagrama(caminho_excel="xlfaults.xlsm")
+main(caminho_excel="xlfaults.xlsm")
