@@ -101,5 +101,3 @@ def main(caminho_excel):
 caminho = sys.argv[1]
 main(caminho_excel=caminho)
 print("Diagrama Elétrico Gerado com Sucesso!")
-
-
