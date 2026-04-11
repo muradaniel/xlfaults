@@ -36,5 +36,5 @@ def main(caminho):
     transferir_dados_para_excel(caminho, "Linhas de Transmissão", Linha)
 
 caminho = sys.argv[1]
-main(caminho_excel=caminho)
+main(caminho=caminho)
 print("Conversão Realizada com Sucesso!")
