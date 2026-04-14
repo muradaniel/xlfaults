@@ -14,10 +14,11 @@ from diagrama.desenho_transformador import Desenho_Transformador
 from diagrama.desenhando_linha import Desenho_Linha
 from diagrama.desenhando_carga import Desenho_Carga
 #from diagrama.desenhando_transformador_3_enrolamentos import Desenho_Transformador_3_enrolamentos # Futuro proximo...
+from exportar.mensagem import abrir_loading, fechar_loading
 
 
 def main(caminho_excel):
-
+    abrir_loading("Diagrama Unifilar")
     #----------------------------------------------------------------------------------------------------------------------
     #------------------------------- LEITURA DE DADOS DO EXCEL & VARIAVEIS  -----------------------------------------------
     #----------------------------------------------------------------------------------------------------------------------
@@ -97,7 +98,9 @@ def main(caminho_excel):
     data,
     dicionario_cores
 )
+    fechar_loading()
 
-caminho = sys.argv[1]
+#caminho = sys.argv[1]
+caminho= r"xlfaults.xlsm"
 main(caminho_excel=caminho)
 print("Diagrama Elétrico Gerado com Sucesso!")
