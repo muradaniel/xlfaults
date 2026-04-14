@@ -1,61 +1,157 @@
-# Xlfaults
+# ⚡ XLFaults – Simulador de Curto-Circuito no Excel
 
-Desenvolvimento de ferramenta computacional para análise de curto-circuito em sistemas elétricos de potência, com entrada de dados e processamento integrados ao Excel.
+O **XLFaults** é uma ferramenta para análise de curto-circuito em sistemas elétricos de potência, desenvolvida por **Daniel Moraes de Freitas**, estudante de Engenharia Elétrica pela UERJ.
 
-## Introdução
+A proposta do projeto é tornar a modelagem e análise de sistemas elétricos mais acessível, utilizando o Microsoft Excel como interface principal, eliminando a necessidade de arquivos de entrada complexos.
 
-Ao analisar as ferramentas disponíveis para estudantes e profissionais de Engenharia Elétrica, é comum encontrar soluções pagas, versões acadêmicas com limitações no número de barramentos ou até mesmo softwares com instabilidades e bugs. Além disso, a organização de sistemas elétricos de potência é naturalmente mais eficiente quando estruturada em tabelas — algo que o Excel faz de forma simples e poderosa.
+---
 
-Pensando nessas limitações, desenvolvi o **XLFaults**: uma ferramenta de análise de curto-circuito sem restrições de barramentos, integrada diretamente ao Excel e voltada para praticidade, flexibilidade e autonomia do usuário.
+## 🚀 Principais Diferenciais
 
-A proposta é simples: você precisa apenas do meu código e de uma planilha Excel bem estruturada. A partir disso, toda a modelagem, processamento e análise acontecem de forma automatizada — é só preparar os dados e deixar a mágica acontecer.
+- 📊 Interface baseada em **tabelas no Excel**
+- 🔌 Integração com **Python** para cálculos elétricos
+- ⚡ Simulação de diferentes tipos de curto-circuito
+- 📈 Geração automática de **diagramas unifilares**
+- 📑 Relatórios completos e organizados
+- 🔍 Validação com software profissional como o Anafas
 
-## Como Instalar
+---
 
-[...]
+## 🛠️ Instalação
 
-## Como Usar
+1. Baixe o projeto no GitHub  
+2. Abra o Excel e ative a guia **Desenvolvedor**
+3. Vá em:
+4. Adicione o arquivo `.xlam` do projeto
+5. Ative o suplemento
 
-![Foto da barra](docs/imagens/Tela_excel.png)
+---
 
-Nesta seção, vamos analisar cada grupo de comandos dentro da guia "curto circuito" e iremos analisar suas funcionalidades e propriedades.
+## 📦 Instalação de Dependências
 
-## Casos de Estudo
+O XLFaults utiliza bibliotecas Python para processamento.
 
-### Elementos do Sistema Elétrico
-![Foto da barra](docs/imagens/Tela_excel.png)
+➡️ Dentro do Excel, clique no botão:
+**"Instalar Dependências"**
 
-#### Barramentos
-![Foto da barra](docs/imagens/tabela_barramentos.png)
+Isso instalará automaticamente os pacotes listados no arquivo `requirements.txt`.
 
-- Ao clicar no respectivo botão, o usuário é direcionado para a planilha "Barramentos";
-- Ao ser direcionado para a planilha, o usuário irá observar uma pequena tabela com 3 colunas ("Nome", "Número", "Tensão (kV");
-- Na coluna "Nome"", pode ser imputado qualquer valor, de preferência o nome do barramento ("Barra 1", "Barramento Light", "B 10", etc);
-- Na coluna "Número"", pode ser imputado apenas valores inteiros maiores que zero, não havendo valor limite, como recomendação, não ultrapassar o número 99999 para não casar imcompatibilidade com o modelo do ANAFAS;
-- Na coluna 'Tensão (kV)"", pode ser imputado apenas valores maiores que zero. Essa tensão é a tensão BASE do barramento!;
+---
 
-#### Transformadores
-![Foto da barra](docs/imagens/tabela_barramentos.png)
+## ⚙️ Configuração Inicial
 
-- Ao clicar no respectivo botão, o usuário é direcionado para a planilha "Transformadores";
-- Ao ser direcionado para a planilha, o usuário irá observar uma tabela com 15 colunas;
-- Na coluna "Nome", pode ser imputado qualquer valor, de preferência o nome do transformador ("Transformador 1", "Trafo 3", "T 15", etc);
-- Na coluna "Potência Nominal Base (MVA)", pode ser imputado apenas valores maiores que zero, não havendo valor limite, como recomendação, utiluizar a potência base de análise (ou seja, transformador já com a sua base convertida)
-- Na coluna "Barra de", pode ser imputado apenas valores inteiros  com o número do barramento em que está conectado, sendo definido como conexão primária do trasformador
+Antes de iniciar:
 
-## Simulação e Configurações
+- Gere o **template padrão**
+- Defina:
+- Potência base (ex: 100 MVA)
+- Nome do caso
+- Unidade dos resultados:
+ - PU (por unidade)
+ - Valores reais
 
-## Resultados
+---
 
-## Informações Adicionais
+## 🧩 Modelagem do Sistema
 
-## Próximas Novidades
-- Modelagem de Transformador de 3 enrolamentos
-- Modelagem de Transformador defasador
-- Ajuste e conferências com casos de estudos com ilhas e barras isoladas
+O sistema elétrico é montado através de tabelas no Excel:
 
-## Contatos
+### 🔹 Barramentos
+- Níveis de tensão
+- Identificação do sistema
 
-- LinkedIn: [Daniel Murad](https://www.linkedin.com/in/daniel-murad/)
-- Email: [daniel.murad.freitas@gmail.com](mailto:daniel.murad.freitas@gmail.com)
-- Portfólio: [Meu Site](https://danielmurad.my.canva.site/site-daniel-murad)
+### 🔹 Linhas de Transmissão
+- Impedâncias (Z1, Z2, Z0)
+
+### 🔹 Transformadores
+- Relações de transformação
+- Impedâncias
+
+### 🔹 Máquinas
+- Geradores ou motores
+- Dados de sequência
+
+✔️ Suporte completo para:
+- Sequência positiva
+- Sequência negativa
+- Sequência zero
+
+---
+
+## ⚡ Tipos de Curto-Circuito
+
+O simulador permite configurar:
+
+- Curto trifásico
+- Curto monofásico
+- Curto bifásico
+- Curto bifásico-terra
+
+Com opção de:
+- Impedância de falta
+- Seleção da barra de aplicação
+
+---
+
+## 📊 Resultados
+
+Após a simulação, o XLFaults gera:
+
+### 📌 Diagrama Unifilar
+- Colorido por nível de tensão
+- Gerado automaticamente
+
+### 📌 Matrizes do Sistema
+- Matriz de Admitância (Ybarra)
+- Matriz de Impedância (Zbarra)
+
+### 📌 Relatório Completo
+- Correntes de falta
+- Tensões nos barramentos
+- Contribuição de cada elemento
+
+---
+
+## ✅ Validação
+
+Os resultados do XLFaults foram validados com:
+
+- Software profissional (Anafas)
+- Exemplos acadêmicos clássicos
+
+✔️ Alta precisão nos cálculos
+
+---
+
+## 🔮 Próximas Funcionalidades
+
+- 🔁 Transformadores de **três enrolamentos**
+- 🎚️ Ajuste de **tap**
+- 📊 Módulo de **fluxo de potência**
+
+---
+
+## 🎥 Demonstração
+
+Confira o vídeo completo do projeto:
+
+👉 https://youtu.be/DFxH0akx1NI
+
+---
+
+## 👨‍💻 Autor
+
+**Daniel Moraes de Freitas**  
+Estudante de Engenharia Elétrica – UERJ  
+Foco em Sistemas Elétricos de Potência  
+
+---
+
+## 📌 Objetivo do Projeto
+
+O XLFaults foi desenvolvido com o objetivo de:
+
+- Facilitar a análise de curto-circuito
+- Melhorar a organização de dados elétricos
+- Utilizar ferramentas acessíveis como o Excel
+- Integrar engenharia elétrica com programação
