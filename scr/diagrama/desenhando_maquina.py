@@ -2,7 +2,7 @@ import math
 import schemdraw.elements as elm
 from diagrama.criacao_elementos import Simbolo_Maquina
 
-def Desenho_Maquina(d, Maquina, posicao_elementos, dicionario_cores):
+def Desenho_Maquina(d, Maquina, posicao_elementos, dicionario_cores, Barra):
     for index, row in Maquina.iterrows():
         barra = row["Barra Conectada"]
         tensao = row["Tensão (kV)"]
@@ -11,6 +11,7 @@ def Desenho_Maquina(d, Maquina, posicao_elementos, dicionario_cores):
         posicao_gerador = posicao_elementos[nome]
         posicao_barra = posicao_elementos[barra]
         conexao = row['Tipo de Conexão']
+        tensao_barra_conecatada = Barra.set_index('Número').loc[barra, 'Tensão (kV)']
         
         teta = math.degrees(math.atan2(posicao_elementos[nome][1] - posicao_elementos[barra][1], posicao_elementos[nome][0] - posicao_elementos[barra][0]))
         
@@ -18,7 +19,7 @@ def Desenho_Maquina(d, Maquina, posicao_elementos, dicionario_cores):
             type = "G"
         else:
             type = "M"
-        maquina = Simbolo_Maquina(cor=dicionario_cores[tensao], type=type).at(posicao_gerador).theta(teta+180).label(f"{nome}\n{tensao} kV\n{conexao}\n{potencia} MVA")
+        maquina = Simbolo_Maquina(cor=dicionario_cores[tensao_barra_conecatada], type=type).at(posicao_gerador).theta(teta+180).label(f"{nome}\n{tensao} kV\n{conexao}\n{potencia} MVA")
         d += maquina
         ponto_c = maquina.absanchors['C']
-        d += elm.Line().at(posicao_barra).to(ponto_c).color(dicionario_cores[tensao])
+        d += elm.Line().at(posicao_barra).to(ponto_c).color(dicionario_cores[tensao_barra_conecatada])

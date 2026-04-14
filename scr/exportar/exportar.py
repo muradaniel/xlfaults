@@ -96,7 +96,7 @@ def gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, 
         # Gerar Subtítulo das Tensões nos Barramentos
         ultima_linha = Gera_subtitulo(sheet, ultima_linha, unidade, "Tensões nos Barramentos")
         # Gerar Cabeçalho da tabela de Tensões nos Barramentos
-        ultima_linha = Gera_cabecalhos(sheet, ['Barra', 'Fase A', 'Fase B', 'Fase C', 'Seq. (0)', 'Seq. (-)', 'Seq. (+)'], ultima_linha, (166, 200, 236))
+        ultima_linha = Gera_cabecalhos(sheet, ['Barra', 'Fase A', 'Fase B', 'Fase C', 'Seq. (0)', 'Seq. (+)', 'Seq. (-)'], ultima_linha, (166, 200, 236))
         # Insere os dados da tabela de Tensões nos Barramentos
         ultima_linha = Inserir_tabela(sheet, resultados, 'Tensões nas Barras', index_configuracoes, ultima_linha)
 
@@ -104,17 +104,17 @@ def gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, 
         # Gerar Subtítulo das Correntes nos Elementos
         ultima_linha = Gera_subtitulo(sheet, ultima_linha, unidade, "Correntes de Contribuição")
         # Gerar Cabeçalho da tabela de Correntes de Contribuição
-        ultima_linha = Gera_cabecalhos(sheet, ['Elemento', 'Fase A', 'Fase B', 'Fase C', 'Seq. (0)', 'Seq. (-)', 'Seq. (+)'], ultima_linha, (255, 113, 79))
+        ultima_linha = Gera_cabecalhos(sheet, ['Elemento', 'Fase A', 'Fase B', 'Fase C', 'Seq. (0)', 'Seq. (+)', 'Seq. (-)'], ultima_linha, (255, 113, 79))
         # Insere os dados da tabela de Correntes de Contribuição
         ultima_linha = Inserir_tabela(sheet, resultados, 'Correntes de Contribuição', index_configuracoes, ultima_linha)
 
 
-        # Gerar Subtítulo das CorrentesInjetadas nos Barramentos
-        ultima_linha = Gera_subtitulo(sheet, ultima_linha, unidade, "Correntes Injetadas nos Barramentos")
-        # Gerar Cabeçalho da tabela de Correntes Injetadas nos Barramentos
-        ultima_linha = Gera_cabecalhos(sheet, ['Barra', 'Fase A', 'Fase B', 'Fase C', 'Seq. (0)', 'Seq. (-)', 'Seq. (+)'], ultima_linha, (255, 255, 0))
-        # Insere os dados da tabela de Correntes Injetadas nos Barramentos
-        ultima_linha = Inserir_tabela(sheet, resultados, 'Correntes Injetadas nos Barramentos', index_configuracoes, ultima_linha)
+        # # Gerar Subtítulo das Correntes Injetadas nos Barramentos - Precisa de Ajustes !!!!
+        # ultima_linha = Gera_subtitulo(sheet, ultima_linha, unidade, "Correntes Injetadas nos Barramentos")
+        # # Gerar Cabeçalho da tabela de Correntes Injetadas nos Barramentos
+        # ultima_linha = Gera_cabecalhos(sheet, ['Barra', 'Fase A', 'Fase B', 'Fase C', 'Seq. (0)', 'Seq. (+)', 'Seq. (-)'], ultima_linha, (255, 255, 0))
+        # # Insere os dados da tabela de Correntes Injetadas nos Barramentos
+        # ultima_linha = Inserir_tabela(sheet, resultados, 'Correntes Injetadas nos Barramentos', index_configuracoes, ultima_linha)
 
         ultima_linha += 3
     
