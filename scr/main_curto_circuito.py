@@ -16,7 +16,7 @@ from functions.conversao_valores_reais import valores_reais
 from functions.leitura_e_tratamento_tabelas import tabelas_de_dados
 from functions.leitura_variaveis_sistemas import variaveis_sistema
 from exportar.exportar import gerar_relatorio_completo
-from exportar.mensagem import *
+from exportar.mensagem import abrir_loading, fechar_loading
 
 
 def main(caminho):
@@ -102,8 +102,7 @@ def main(caminho):
     gerar_relatorio_completo(caminho, resultados, Configuracoes, potencia_base, nome_caso_estudo, unidade, data)
     fechar_loading()
 
-#caminho = sys.argv[1]
-caminho = r"xlfaults.xlsm"
+caminho = sys.argv[1]
+#caminho = r"xlfaults.xlsm"
 main(caminho)
 print("Simulação Finalizada...")
-

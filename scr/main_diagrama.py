@@ -100,7 +100,7 @@ def main(caminho_excel):
 )
     fechar_loading()
 
-#caminho = sys.argv[1]
-caminho= r"xlfaults.xlsm"
+caminho = sys.argv[1]
+#caminho= r"xlfaults.xlsm"
 main(caminho_excel=caminho)
 print("Diagrama Elétrico Gerado com Sucesso!")
