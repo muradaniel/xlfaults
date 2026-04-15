@@ -1,157 +1,185 @@
-# ⚡ XLFaults – Simulador de Curto-Circuito no Excel
+# ⚡ XLFaults – Simulador de Curto- circuito no Excel
 
-O **XLFaults** é uma ferramenta para análise de curto-circuito em sistemas elétricos de potência, desenvolvida por **Daniel Moraes de Freitas**, estudante de Engenharia Elétrica pela UERJ.
+O **Xlfaults** é uma ferramenta para análises de curto-circuito em sistemas elétricos de potência. Seus principais diferenciais são ser uma ferramenta gratuita, sem limitação de barramentos e com interface inteiramente baseada no Microsoft Excel, tornando-a extremamente acessível.
 
-A proposta do projeto é tornar a modelagem e análise de sistemas elétricos mais acessível, utilizando o Microsoft Excel como interface principal, eliminando a necessidade de arquivos de entrada complexos.
+A proposta do projeto é tornar a modelagem e análise de sistemas elétricos mais simples, eliminando a necessidade de entrada de dados via arquivos de texto (txt) ou o desenho manual de diagramas, já que o software possui uma função de desenho automático e organizado.
+
+![Interface do Xlfaults](docs/imagens/logo.png)
+---
+
+## 📌 Objetivo do Projeto
+
+O XLFaults foi desenvolvido para:
+
+- **Facilitar** a análise de curto-circuito.
+- **Melhorar** a organização de dados elétricos.
+- **Utilizar** ferramentas acessíveis (Excel).
+- **Integrar** engenharia elétrica com programação Python.
+- **Disponibilizar** uma solução gratuita principalmente para estudantes.
 
 ---
 
 ## 🚀 Principais Diferenciais
 
-- 📊 Interface baseada em **tabelas no Excel**
-- 🔌 Integração com **Python** para cálculos elétricos
-- ⚡ Simulação de diferentes tipos de curto-circuito
-- 📈 Geração automática de **diagramas unifilares**
-- 📑 Relatórios completos e organizados
-- 🔍 Validação com software profissional como o Anafas
+- 📊 **Interface Familiar:** 100% baseada em tabelas no Excel.
+- 🔌 **Poder do Python:** Integração com Python para cálculos matriciais complexos.
+- ⚡ **Simulações Diversas:** Suporte a diferentes tipos de faltas (Trifásica, Monofásica, etc).
+- 📈 **Diagramas Automáticos:** Geração automática de diagramas unifilares.
+- 📑 **Relatórios Profissionais:** Resultados organizados e formatados prontos para uso.
+- 🔍 **Compatibilidade:** Leitura de arquivos do software Anafas.
 
 ---
 
 ## 🛠️ Instalação
 
-1. Baixe o projeto no GitHub  
-2. Abra o Excel e ative a guia **Desenvolvedor**
-3. Vá em:
-4. Adicione o arquivo `.xlam` do projeto
-5. Ative o suplemento
-
----
-
-## 📦 Instalação de Dependências
-
-O XLFaults utiliza bibliotecas Python para processamento.
-
-➡️ Dentro do Excel, clique no botão:
-**"Instalar Dependências"**
-
-Isso instalará automaticamente os pacotes listados no arquivo `requirements.txt`.
+1. **Baixe** o projeto no GitHub.
+2. **Abra** um arquivo Excel habilitado para macros (`.xlsm`).
+3. **Salve** o arquivo Excel na pasta do projeto.
+4. **Ative** a guia **Desenvolvedor** no seu Excel.
+5. Vá em **Desenvolvedor** > **Suplementos do Excel** > **Procurar** > Selecione o arquivo `suplemento_xlfaults.xlam` (localizado em `Xlfaults > Addin`) > **Ok**.
+6. Na aba **'Curto Circuito'**, clique no botão **'Instalar Bibliotecas'** Isso instalará automaticamente os pacotes listados no arquivo `requirements.txt
 
 ---
 
 ## ⚙️ Configuração Inicial
 
-Antes de iniciar:
+Antes de iniciar as simulações:
 
-- Gere o **template padrão**
-- Defina:
-- Potência base (ex: 100 MVA)
-- Nome do caso
-- Unidade dos resultados:
- - PU (por unidade)
- - Valores reais
+- Gere o **Layout padrão** através do menu.
+- Salve o Arquivo resultante na pasta do projeto, habilitado para macros (xlsm)
+- Defina a **Potência Base** (ex: 100 MVA).
+- Nomeie o seu caso de estudo.
+- Escolha a unidade dos resultados: **P.U. (por unidade)** ou **Valores Reais (kA, kV)**.
 
 ---
 
 ## 🧩 Modelagem do Sistema
 
-O sistema elétrico é montado através de tabelas no Excel:
+A modelagem é feita de forma intuitiva preenchendo as tabelas:
 
 ### 🔹 Barramentos
-- Níveis de tensão
-- Identificação do sistema
+![](docs/imagens/barra.png)
+
+- Identificação (Número e Nome).
+- Níveis de Tensão.
+- Tipo de sistema.
 
 ### 🔹 Linhas de Transmissão
-- Impedâncias (Z1, Z2, Z0)
+![](docs/imagens/linha.png)
+
+- Impedâncias de sequência positiva e zero ($Z_1, Z_0$).
 
 ### 🔹 Transformadores
-- Relações de transformação
-- Impedâncias
+![](docs/imagens/trafo.png)
+
+- Relações de transformação e Potência Base.
+- Configurações de conexão e defasagens.
+- Impedâncias ($Z_1, Z_0, Z_n$).
 
 ### 🔹 Máquinas
-- Geradores ou motores
-- Dados de sequência
+![](docs/imagens/maquina.png)
 
-✔️ Suporte completo para:
-- Sequência positiva
-- Sequência negativa
-- Sequência zero
+- Tipo de máquina e conexões.
+- Impedâncias ($Z_1, Z_0, Z_n$).
 
 ---
 
 ## ⚡ Tipos de Curto-Circuito
 
-O simulador permite configurar:
+O simulador permite configurar detalhadamente:
 
-- Curto trifásico
-- Curto monofásico
-- Curto bifásico
-- Curto bifásico-terra
+![](docs/imagens/configuracao.png)
 
-Com opção de:
-- Impedância de falta
-- Seleção da barra de aplicação
+- **Trifásico**
+- **Monofásico**
+- **Bifásico**
+- **Bifásico-Terra**
+
+**Recursos adicionais:**
+- Inclusão de impedância de falta.
+- Consideração de tensão de pré-falta.
+- Seleção das barras de aplicação do curto.
+- Execução de múltiplos curtos simultâneos.
 
 ---
 
 ## 📊 Resultados
 
-Após a simulação, o XLFaults gera:
+Após a simulação, o XLFaults gera automaticamente:
 
 ### 📌 Diagrama Unifilar
-- Colorido por nível de tensão
-- Gerado automaticamente
+- Coloração automática por nível de tensão.
+- Legenda técnica e exportação direta para PDF.
+
+![](docs/imagens/diagrama.png)
 
 ### 📌 Matrizes do Sistema
-- Matriz de Admitância (Ybarra)
-- Matriz de Impedância (Zbarra)
+- Visualização da **Matriz de Admitância** ($Y_{barra}$).
+- Visualização da **Matriz de Impedância** ($Z_{barra}$).
+- Forma cartesiana.
+
+![](docs/imagens/matriz.png)
 
 ### 📌 Relatório Completo
-- Correntes de falta
-- Tensões nos barramentos
-- Contribuição de cada elemento
+
+- Correntes de curto-circuito.
+- Tensões em todos os barramentos durante a falta.
+- Contribuição de corrente de cada elemento conectado.
+
+![](docs/imagens/relatorio.png)
 
 ---
 
 ## ✅ Validação
 
-Os resultados do XLFaults foram validados com:
+Os resultados do XLFaults foram rigorosamente validados através de:
 
-- Software profissional (Anafas)
-- Exemplos acadêmicos clássicos
-
-✔️ Alta precisão nos cálculos
+1. **Software Anafas:** Comparação com resultados de software profissional.
+2. **Exemplos Acadêmicos:** Validação com notas de aula do Prof. André Alves [1].
+3. **Precisão:** Resultados com 4 casas decimais (ajustável no código fonte).
 
 ---
 
 ## 🔮 Próximas Funcionalidades
 
-- 🔁 Transformadores de **três enrolamentos**
-- 🎚️ Ajuste de **tap**
-- 📊 Módulo de **fluxo de potência**
+- 🔁 Suporte a transformadores de **três enrolamentos**.
+- 🎚️ Ajuste de **TAP** em transformadores.
+- ✂️ Redução de Kron.
+- 📊 Módulo integrado de **Fluxo de Potência**.
 
 ---
 
-## 🎥 Demonstração
+## 🎥 Demonstração e Tutoriais
 
-Confira o vídeo completo do projeto:
+Confira o funcionamento da ferramenta no vídeo abaixo:
 
-👉 https://youtu.be/DFxH0akx1NI
+👉 **[Assista ao Tutorial no YouTube](https://youtu.be/DFxH0akx1NI)**
 
----
-
-## 👨‍💻 Autor
-
-**Daniel Moraes de Freitas**  
-Estudante de Engenharia Elétrica – UERJ  
-Foco em Sistemas Elétricos de Potência  
+[![Assista ao tutorial no Youtube](docs/imagens/youtube.png)](https://www.youtube.com/watch?v=DFxH0akx1NI)
 
 ---
 
-## 📌 Objetivo do Projeto
+## 📚 Bibliotecas Utilizadas
 
-O XLFaults foi desenvolvido com o objetivo de:
+- **Pandas:** Tratamento de tabelas de dados.
+- **Numpy:** Operações matriciais de alta performance.
+- **xlwings:** Integração e formatação em tempo real no Excel.
+- **PyMuPDF:** Geração e manipulação de relatórios em PDF.
+- **NetworkX:** Gestão de grafos para a topologia do sistema.
+- **SchemDraw:** Motor de desenho dos diagramas elétricos.
+- **Seaborn:** Gestão de paletas de cores técnicas.
 
-- Facilitar a análise de curto-circuito
-- Melhorar a organização de dados elétricos
-- Utilizar ferramentas acessíveis como o Excel
-- Integrar engenharia elétrica com programação
+---
+
+## 📖 Referências
+
+- [01] - Alves, André. Notas de aula de Sistemas de Potência.
+
+---
+
+## 👨‍💻 Autor e Desenvolvedor
+
+**Daniel Murad de Freitas** - Estudante de Engenharia Elétrica – UERJ  
+- Foco em Sistemas Elétricos de Potência  
+- Especialista em Python para Automação e Dados  
+- Interesses: Curto-circuito, Proteção e Machine Learning.
