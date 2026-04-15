@@ -181,5 +181,5 @@ Confira o funcionamento da ferramenta no vídeo abaixo:
 
 **Daniel Murad de Freitas** - Estudante de Engenharia Elétrica – UERJ  
 - Foco em Sistemas Elétricos de Potência  
-- Especialista em Python para Automação e Dados  
+- Afinidade em Python para Automação e Dados  
 - Interesses: Curto-circuito, Proteção e Machine Learning.
