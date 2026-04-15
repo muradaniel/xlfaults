@@ -1,4 +1,4 @@
-# ⚡ XLFaults – Simulador de Curto- circuito no Excel
+# ⚡ XLFaults – Simulador de Curto Circuito no Excel
 
 O **Xlfaults** é uma ferramenta para análises de curto-circuito em sistemas elétricos de potência. Seus principais diferenciais são ser uma ferramenta gratuita, sem limitação de barramentos e com interface inteiramente baseada no Microsoft Excel, tornando-a extremamente acessível.
 
