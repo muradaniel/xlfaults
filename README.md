@@ -58,26 +58,26 @@ Antes de iniciar as simulações:
 A modelagem é feita de forma intuitiva preenchendo as tabelas:
 
 ### 🔹 Barramentos
-![](docs/imagens/barra.png)
+![](docs/imagens/barra_.png)
 
 - Identificação (Número e Nome).
 - Níveis de Tensão.
 - Tipo de sistema.
 
 ### 🔹 Linhas de Transmissão
-![](docs/imagens/linha.png)
+![](docs/imagens/linha_.png)
 
 - Impedâncias de sequência positiva e zero ($Z_1, Z_0$).
 
 ### 🔹 Transformadores
-![](docs/imagens/trafo.png)
+![](docs/imagens/trafo_.png)
 
 - Relações de transformação e Potência Base.
 - Configurações de conexão e defasagens.
 - Impedâncias ($Z_1, Z_0, Z_n$).
 
 ### 🔹 Máquinas
-![](docs/imagens/maquina.png)
+![](docs/imagens/maquina_.png)
 
 - Tipo de máquina e conexões.
 - Impedâncias ($Z_1, Z_0, Z_n$).
@@ -88,7 +88,7 @@ A modelagem é feita de forma intuitiva preenchendo as tabelas:
 
 O simulador permite configurar detalhadamente:
 
-![](docs/imagens/configuracao.png)
+![](docs/imagens/configuracao_.png)
 
 - **Trifásico**
 - **Monofásico**
