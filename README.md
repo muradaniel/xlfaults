@@ -200,4 +200,8 @@ Confira o funcionamento da ferramenta no vídeo abaixo:
 - Interesse em estudos elétricos aplicados a Sistemas Elétricos de Potência  
 - Conhecimento em Python para automação e análise de dados  
 - Áreas de interesse: curto-circuito, fluxo de potência, proteção de sistemas elétricos, inteligência artificial e machine learning.
-- Contatos: [Site](https://danielmurad.my.canva.site/site-daniel-murad), [Linkedin](www.linkedin.com/in/daniel-murad), [GitHub](https://github.com/muradaniel), Email: daniel.murad.freitas@gmail.com
+- Contatos:
+  - [Site](https://danielmurad.my.canva.site/site-daniel-murad)
+  - [LinkedIn](https://www.linkedin.com/in/daniel-murad)
+  - [GitHub](https://github.com/muradaniel)
+  - Email: daniel.murad.freitas@gmail.com
