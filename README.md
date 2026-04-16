@@ -34,7 +34,7 @@ O XLFaults foi desenvolvido para:
 1. **Baixe** o projeto no GitHub.
 2. **Abra** um arquivo Excel habilitado para macros (`.xlsm`).
 3. **Salve** o arquivo Excel na pasta do projeto.
-4. **Ative** a guia **![Desenvolvedor](https://youtu.be/7Vf9jql_pl4?si=vzjQpKDQScCn7GsI)** no seu Excel.
+4. **Ative** a guia **Desenvolvedor** no Excel. [Veja o tutorial em vídeo](https://youtu.be/7Vf9jql_pl4?si=vzjQpKDQScCn7GsI)
 5. Vá em **Desenvolvedor** > **Suplementos do Excel** > **Procurar** > Selecione o arquivo `suplemento_xlfaults.xlam` (localizado em `Xlfaults > Addin`) > **Ok**.
 6. Na aba **'Curto Circuito'**, clique no botão **'Instalar Bibliotecas'** Isso instalará automaticamente os pacotes listados no arquivo `requirements.txt
 
@@ -145,8 +145,8 @@ Os resultados do XLFaults foram validados através de:
 
 1. **Software Anafas:** Comparação com resultados do software profissional.
 2. **Exemplos Acadêmicos:** Validação com notas de aula do Prof. André Alves [1].
-3. **![Software AFASEP](https://www.linkedin.com/posts/gabriel-bie-da-fonseca-a726201b3_ol%C3%A1-rede-no-dia-03112025-realizei-a-activity-7399766044426362880-XvdW?utm_source=share&utm_medium=member_desktop&rcm=ACoAACt7PvcBriVKGiD0y27xIpS4vg14ubX1p-k)** Comparação com resultados do software.
-3. **Precisão:** Resultados com 4 casas decimais (ajustável no código fonte).
+3. **Software AFASEP** Comparação com resultados do software. [Disponível em](https://www.linkedin.com/posts/gabriel-bie-da-fonseca-a726201b3_ol%C3%A1-rede-no-dia-03112025-realizei-a-activity-7399766044426362880-XvdW?utm_source=share&utm_medium=member_desktop&rcm=ACoAACt7PvcBriVKGiD0y27xIpS4vg14ubX1p-k)
+4. **Precisão:** Resultados com 4 casas decimais (ajustável no código fonte).
 
 ---
 
@@ -184,7 +184,7 @@ Confira o funcionamento da ferramenta no vídeo abaixo:
 
 ## 📖 Referências
 
-- [01] - ![Prof. André G. P. Alves - Material Didático de ASP I](https://docs.google.com/forms/d/e/1FAIpQLSdyKfH6FUB-DrT-k-JA5cxSdpKW-zhmEf03mbyJ-LJWqETsDg/viewform?usp=sf_link)
+- [01] - Prof. André G. P. Alves - Material Didático de ASP I. [Disponível em:](https://docs.google.com/forms/d/e/1FAIpQLSdyKfH6FUB-DrT-k-JA5cxSdpKW-zhmEf03mbyJ-LJWqETsDg/viewform?usp=sf_link)
 - [02] AHMED, S. et al. *Fault current limiters and THD in IEEE 9 bus system*. In: **ICET**, 2017.
 - [03] CEPEL – CENTRO DE PESQUISAS DE ENERGIA ELÉTRICA. *ANAFAS*. 2023. Software.
 - [04] PYTHON SOFTWARE FOUNDATION. *Python programming language*. Version 3.8, 2025.
