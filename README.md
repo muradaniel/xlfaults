@@ -58,7 +58,7 @@ Antes de iniciar as simulações:
 A modelagem é feita de forma intuitiva preenchendo as tabelas:
 
 ### 🔹 Barramentos
-![](docs/imagens/barra_.png)
+![](docs/imagens/barra.png)
 
 - Identificação (Número e Nome).
 - Níveis de Tensão.
